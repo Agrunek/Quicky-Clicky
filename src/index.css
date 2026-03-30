@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    --color-gradient-base: --alpha(var(--color-rose-500) / 10%);
+
+    background-color: var(--color-slate-200);
+
+    @variant dark {
+      background-color: var(--color-slate-900);
+    }
+
+    min-height: 100vh;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    background-image:
+      radial-gradient(circle at 60% 0%, var(--color-gradient-base), transparent),
+      radial-gradient(circle at 0% 30%, var(--color-gradient-base), transparent),
+      radial-gradient(circle at 100% 80%, var(--color-gradient-base), transparent),
+      radial-gradient(circle at 50% 100%, var(--color-gradient-base), transparent);
+
+    & * {
+      --color-gradient-base: initial;
+    }
+  }
+}
