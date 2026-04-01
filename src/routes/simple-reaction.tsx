@@ -4,36 +4,38 @@ import InitialSettings from '@/components/InitialSettings';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
-  const { state, dispatch } = useGameState();
+  const { gameState, execute, reactionHandler } = useGameState();
 
-  if (state.gameTime === 'prep') {
+  if (gameState.gameTime === 'prep') {
     return (
       <InitialSettings
-        triesCount={state.triesCount}
-        setTriesCount={(triesCount: number) => dispatch({ type: 'SET_TRIES_COUNT', payload: triesCount })}
-        startGame={() => dispatch({ type: 'START_GAME' })}
+        triesCount={gameState.triesCount}
+        setTriesCount={(triesCount: number) => execute({ type: 'SET_TRIES_COUNT', payload: triesCount })}
+        startGame={() => execute({ type: 'START_GAME' })}
       />
     );
   }
 
   return (
     <div>
-      <p>Current state: {state.gameTime}</p>
-      <p>Numer of tries: {state.triesCount}</p>
-      <p>Current round: {state.currentTrial}</p>
-      <p>Reaction active: {state.reactionActive ? 'YES' : 'NO'}</p>
+      <p>Current state: {gameState.gameTime}</p>
+      <p>Numer of tries: {gameState.triesCount}</p>
+      <p>Current round: {gameState.currentTrial}</p>
+      <p>Reaction active: {gameState.reactionActive ? 'YES' : 'NO'}</p>
+      <p>Results: {JSON.stringify(gameState.results)}</p>
       <button
         onClick={() => {
-          if (state.gameTime === 'end') {
-            dispatch({ type: 'RESET_GAME' });
-          } else if (state.reactionActive) {
-            dispatch({ type: 'DEACTIVATE_REACTION' });
-            dispatch({ type: 'NEXT_ROUND' });
+          if (gameState.gameTime === 'end') {
+            execute({ type: 'RESET_GAME' });
+          } else if (gameState.reactionActive) {
+            execute({ type: 'DEACTIVATE_REACTION' });
+            execute({ type: 'NEXT_ROUND' });
           }
         }}
       >
         NEXT
       </button>
+      <button onClick={() => reactionHandler()}>REACT</button>
     </div>
   );
 };

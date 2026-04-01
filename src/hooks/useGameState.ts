@@ -1,12 +1,24 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 type GameTime = 'prep' | 'live' | 'end';
+
+interface TrialRecordSuccess {
+  isError: false;
+  reactionTimeMs: number;
+}
+
+interface TrialRecordFail {
+  isError: true;
+}
+
+type TrialRecord = TrialRecordSuccess | TrialRecordFail;
 
 interface GameState {
   gameTime: GameTime;
   triesCount: number;
   currentTrial: number;
   reactionActive: boolean;
+  results: TrialRecord[];
 }
 
 type GameAction =
@@ -15,10 +27,11 @@ type GameAction =
   | { type: 'NEXT_ROUND' }
   | { type: 'ACTIVATE_REACTION' }
   | { type: 'DEACTIVATE_REACTION' }
+  | { type: 'PUSH_RESULT'; payload: TrialRecord }
   | { type: 'RESET_GAME' };
 
 const DEFAULT_TRIES_COUNT = 5;
-const MIN_DELAY_MS = 1000;
+const MIN_DELAY_MS = 1500;
 const MAX_DELAY_MS = 4000;
 
 const INITIAL_GAME_STATE: GameState = {
@@ -26,6 +39,7 @@ const INITIAL_GAME_STATE: GameState = {
   triesCount: DEFAULT_TRIES_COUNT,
   currentTrial: 1,
   reactionActive: false,
+  results: [],
 };
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
@@ -49,6 +63,9 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     case 'DEACTIVATE_REACTION':
       return { ...state, reactionActive: false };
 
+    case 'PUSH_RESULT':
+      return { ...state, results: [...state.results, action.payload] };
+
     case 'RESET_GAME':
       return { ...INITIAL_GAME_STATE, triesCount: state.triesCount };
   }
@@ -57,19 +74,36 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
 const useGameState = () => {
   const [state, dispatch] = useReducer(gameReducer, INITIAL_GAME_STATE);
 
+  const activationTimeRef = useRef<number>(null);
+
   useEffect(() => {
     const delay = Math.floor(Math.random() * (MAX_DELAY_MS - MIN_DELAY_MS)) + MIN_DELAY_MS;
 
     const timer = setTimeout(() => {
       if (state.gameTime === 'live') {
         dispatch({ type: 'ACTIVATE_REACTION' });
+        activationTimeRef.current = performance.now();
       }
     }, delay);
 
     return () => clearTimeout(timer);
   }, [state.gameTime, state.currentTrial]);
 
-  return { state, dispatch };
+  const reactionHandler = () => {
+    if (state.results.length >= state.currentTrial) {
+      return;
+    }
+
+    if (!state.reactionActive || activationTimeRef.current === null) {
+      dispatch({ type: 'PUSH_RESULT', payload: { isError: true } });
+      return;
+    }
+
+    const reactionTime = performance.now() - activationTimeRef.current;
+    dispatch({ type: 'PUSH_RESULT', payload: { isError: false, reactionTimeMs: reactionTime } });
+  };
+
+  return { gameState: state, execute: dispatch, reactionHandler };
 };
 
 export default useGameState;
