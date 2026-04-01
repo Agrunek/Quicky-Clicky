@@ -4,7 +4,7 @@ import InitialSettings from '@/components/InitialSettings';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
-  const [state, dispatch] = useGameState();
+  const { state, dispatch } = useGameState();
 
   if (state.gameTime === 'prep') {
     return (
@@ -29,8 +29,6 @@ const SimpleReaction = () => {
           } else if (state.reactionActive) {
             dispatch({ type: 'DEACTIVATE_REACTION' });
             dispatch({ type: 'NEXT_ROUND' });
-          } else {
-            dispatch({ type: 'ACTIVATE_REACTION' });
           }
         }}
       >

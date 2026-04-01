@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 type GameTime = 'prep' | 'live' | 'end';
 
@@ -18,6 +18,8 @@ type GameAction =
   | { type: 'RESET_GAME' };
 
 const DEFAULT_TRIES_COUNT = 5;
+const MIN_DELAY_MS = 1000;
+const MAX_DELAY_MS = 4000;
 
 const INITIAL_GAME_STATE: GameState = {
   gameTime: 'prep',
@@ -53,7 +55,21 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
 };
 
 const useGameState = () => {
-  return useReducer(gameReducer, INITIAL_GAME_STATE);
+  const [state, dispatch] = useReducer(gameReducer, INITIAL_GAME_STATE);
+
+  useEffect(() => {
+    const delay = Math.floor(Math.random() * (MAX_DELAY_MS - MIN_DELAY_MS)) + MIN_DELAY_MS;
+
+    const timer = setTimeout(() => {
+      if (state.gameTime === 'live') {
+        dispatch({ type: 'ACTIVATE_REACTION' });
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [state.gameTime, state.currentTrial]);
+
+  return { state, dispatch };
 };
 
 export default useGameState;
