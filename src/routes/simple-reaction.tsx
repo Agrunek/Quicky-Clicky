@@ -4,38 +4,25 @@ import InitialSettings from '@/components/InitialSettings';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
-  const { gameState, execute, reactionHandler } = useGameState();
+  const { state, setupFn, startFn } = useGameState(true);
 
-  if (gameState.gameTime === 'prep') {
+  if (state.status === 'prep') {
     return (
       <InitialSettings
-        triesCount={gameState.triesCount}
-        setTriesCount={(triesCount: number) => execute({ type: 'SET_TRIES_COUNT', payload: triesCount })}
-        startGame={() => execute({ type: 'START_GAME' })}
+        triesCount={state.setup.trialCount}
+        setTriesCount={(triesCount: number) => setupFn({ trialCount: triesCount, keyConfirm: state.setup.keyConfirm })}
+        startGame={startFn}
       />
     );
   }
 
   return (
-    <div>
-      <p>Current state: {gameState.gameTime}</p>
-      <p>Numer of tries: {gameState.triesCount}</p>
-      <p>Current round: {gameState.currentTrial}</p>
-      <p>Reaction active: {gameState.reactionActive ? 'YES' : 'NO'}</p>
-      <p>Results: {JSON.stringify(gameState.results)}</p>
-      <button
-        onClick={() => {
-          if (gameState.gameTime === 'end') {
-            execute({ type: 'RESET_GAME' });
-          } else if (gameState.reactionActive) {
-            execute({ type: 'DEACTIVATE_REACTION' });
-            execute({ type: 'NEXT_ROUND' });
-          }
-        }}
-      >
-        NEXT
-      </button>
-      <button onClick={() => reactionHandler()}>REACT</button>
+    <div className="text-3xl text-white">
+      <p>Current state: {state.status}</p>
+      <p>Numer of tries: {state.setup.trialCount}</p>
+      <p>Current round: {state.currentTrial}</p>
+      <p>Reaction ready: {state.reactionReady ? 'YES' : 'NO'}</p>
+      <p>Results: {JSON.stringify(state.results)}</p>
     </div>
   );
 };

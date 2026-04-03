@@ -1,109 +1,167 @@
 import { useEffect, useReducer, useRef } from 'react';
 
-type GameTime = 'prep' | 'live' | 'end';
+type GameStatus = 'prep' | 'live' | 'dead';
 
-interface TrialRecordSuccess {
-  isError: false;
+interface GameSetup {
+  trialCount: number;
+  keyConfirm: string;
+  keyDeny?: string;
+}
+
+interface TrialResultFalseStart {
+  falseStart: true;
+}
+
+interface TrialResultStandard {
+  falseStart: false;
   reactionTimeMs: number;
+  intentMatch?: boolean;
+  isCorrect?: boolean;
 }
 
-interface TrialRecordFail {
-  isError: true;
-}
-
-type TrialRecord = TrialRecordSuccess | TrialRecordFail;
+type TrialResult = TrialResultFalseStart | TrialResultStandard;
 
 interface GameState {
-  gameTime: GameTime;
-  triesCount: number;
+  status: GameStatus;
+  setup: GameSetup;
   currentTrial: number;
-  reactionActive: boolean;
-  results: TrialRecord[];
+  reactionReady: boolean;
+  results: TrialResult[];
 }
 
 type GameAction =
-  | { type: 'SET_TRIES_COUNT'; payload: number }
-  | { type: 'START_GAME' }
-  | { type: 'NEXT_ROUND' }
-  | { type: 'ACTIVATE_REACTION' }
-  | { type: 'DEACTIVATE_REACTION' }
-  | { type: 'PUSH_RESULT'; payload: TrialRecord }
-  | { type: 'RESET_GAME' };
+  | { type: 'SETUP'; payload: GameSetup }
+  | { type: 'START' }
+  | { type: 'NEXT' }
+  | { type: 'ACTIVATE' }
+  | { type: 'PUSH_RESULT'; payload: TrialResult }
+  | { type: 'RESTART' };
 
-const DEFAULT_TRIES_COUNT = 5;
+type EvaluateReactionFunction = (reactionTimeMs: number, confirmation?: boolean) => TrialResultStandard;
+
+const DEFAULT_TRIAL_COUNT = 5;
+const DEFAULT_KEY_CONFIRM = 'Space';
+const DEFAULT_EVALUATION_FUNCTION: EvaluateReactionFunction = (time) => ({ falseStart: false, reactionTimeMs: time });
 const MIN_DELAY_MS = 1500;
 const MAX_DELAY_MS = 4000;
 
 const INITIAL_GAME_STATE: GameState = {
-  gameTime: 'prep',
-  triesCount: DEFAULT_TRIES_COUNT,
+  status: 'prep',
+  setup: { trialCount: DEFAULT_TRIAL_COUNT, keyConfirm: DEFAULT_KEY_CONFIRM },
   currentTrial: 1,
-  reactionActive: false,
+  reactionReady: false,
   results: [],
 };
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
   switch (action.type) {
-    case 'SET_TRIES_COUNT':
-      return { ...state, triesCount: action.payload };
+    case 'SETUP':
+      return { ...state, setup: { ...action.payload } };
 
-    case 'START_GAME':
-      return { ...state, gameTime: 'live' };
+    case 'START':
+      return { ...state, status: 'live' };
 
-    case 'NEXT_ROUND':
-      if (state.currentTrial >= state.triesCount) {
-        return { ...state, gameTime: 'end' };
+    case 'NEXT':
+      if (state.currentTrial >= state.setup.trialCount) {
+        return { ...state, status: 'dead', reactionReady: false };
       } else {
-        return { ...state, currentTrial: state.currentTrial + 1 };
+        return { ...state, currentTrial: state.currentTrial + 1, reactionReady: false };
       }
 
-    case 'ACTIVATE_REACTION':
-      return { ...state, reactionActive: true };
-
-    case 'DEACTIVATE_REACTION':
-      return { ...state, reactionActive: false };
+    case 'ACTIVATE':
+      return { ...state, reactionReady: true };
 
     case 'PUSH_RESULT':
       return { ...state, results: [...state.results, action.payload] };
 
-    case 'RESET_GAME':
-      return { ...INITIAL_GAME_STATE, triesCount: state.triesCount };
+    case 'RESTART':
+      return { ...INITIAL_GAME_STATE, setup: { ...state.setup } };
+
+    default:
+      return state;
   }
 };
 
-const useGameState = () => {
+const useGameState = (mouse: boolean = false, fn: EvaluateReactionFunction = DEFAULT_EVALUATION_FUNCTION) => {
   const [state, dispatch] = useReducer(gameReducer, INITIAL_GAME_STATE);
-
-  const activationTimeRef = useRef<number>(null);
+  const reactionReadyTimestampRef = useRef<number | null>(null);
+  const reactionConsumedRef = useRef(false);
+  const ignoreInputRef = useRef(true);
 
   useEffect(() => {
-    const delay = Math.floor(Math.random() * (MAX_DELAY_MS - MIN_DELAY_MS)) + MIN_DELAY_MS;
+    const handleReaction = (confirmation?: boolean) => {
+      if (state.status !== 'live' || ignoreInputRef.current) return;
+
+      if (reactionConsumedRef.current) return;
+      reactionConsumedRef.current = true;
+
+      if (reactionReadyTimestampRef.current === null) {
+        reactionReadyTimestampRef.current = null;
+        dispatch({ type: 'PUSH_RESULT', payload: { falseStart: true } });
+        dispatch({ type: 'NEXT' });
+        return;
+      }
+
+      const reactionTimeMs = performance.now() - reactionReadyTimestampRef.current;
+      reactionReadyTimestampRef.current = null;
+      dispatch({ type: 'PUSH_RESULT', payload: fn(reactionTimeMs, confirmation) });
+      dispatch({ type: 'NEXT' });
+    };
+
+    const clickHandler = mouse && (() => handleReaction());
+    const keydownHandler = (e: KeyboardEvent) => {
+      if (e.repeat) return;
+
+      if (e.code === state.setup.keyConfirm || (state.setup.keyDeny && e.code === state.setup.keyDeny)) {
+        handleReaction(e.code === state.setup.keyConfirm);
+      }
+    };
+
+    if (clickHandler) window.addEventListener('click', clickHandler);
+    window.addEventListener('keydown', keydownHandler);
+
+    return () => {
+      if (clickHandler) window.removeEventListener('click', clickHandler);
+      window.removeEventListener('keydown', keydownHandler);
+    };
+  }, [mouse, fn, state.status, state.setup]);
+
+  useEffect(() => {
+    if (state.status !== 'live') return;
+
+    const delay = Math.floor(Math.random() * (MAX_DELAY_MS - MIN_DELAY_MS + 1)) + MIN_DELAY_MS;
+    reactionConsumedRef.current = false;
 
     const timer = setTimeout(() => {
-      if (state.gameTime === 'live') {
-        dispatch({ type: 'ACTIVATE_REACTION' });
-        activationTimeRef.current = performance.now();
-      }
+      dispatch({ type: 'ACTIVATE' });
+      reactionReadyTimestampRef.current = performance.now();
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [state.gameTime, state.currentTrial]);
+  }, [state.status, state.currentTrial]);
 
-  const reactionHandler = () => {
-    if (state.results.length >= state.currentTrial) {
-      return;
-    }
-
-    if (!state.reactionActive || activationTimeRef.current === null) {
-      dispatch({ type: 'PUSH_RESULT', payload: { isError: true } });
-      return;
-    }
-
-    const reactionTime = performance.now() - activationTimeRef.current;
-    dispatch({ type: 'PUSH_RESULT', payload: { isError: false, reactionTimeMs: reactionTime } });
+  const setupFn = (setup: GameSetup) => {
+    if (state.status === 'prep') dispatch({ type: 'SETUP', payload: setup });
   };
 
-  return { gameState: state, execute: dispatch, reactionHandler };
+  const startFn = () => {
+    if (state.status === 'prep') {
+      dispatch({ type: 'START' });
+
+      setTimeout(() => {
+        ignoreInputRef.current = false;
+      }, 0);
+    }
+  };
+
+  const restartFn = () => {
+    reactionReadyTimestampRef.current = null;
+    reactionConsumedRef.current = false;
+    ignoreInputRef.current = true;
+    dispatch({ type: 'RESTART' });
+  };
+
+  return { state, setupFn, startFn, restartFn };
 };
 
 export default useGameState;
