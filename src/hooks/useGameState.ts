@@ -2,10 +2,11 @@ import { useEffect, useReducer, useRef } from 'react';
 
 type GameStatus = 'prep' | 'live' | 'dead';
 
-interface GameSetup {
+export interface GameSetup {
   trialCount: number;
   keyConfirm: string;
   keyDeny?: string;
+  numberOfItems?: number;
 }
 
 interface TrialResultFalseStart {
