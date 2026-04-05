@@ -2,6 +2,7 @@ import type { GameSetup } from '@/hooks/useGameState';
 
 import Input from '@/components/Input';
 import KeybindInput from '@/components/KeybindInput';
+import Checkbox from '@/components/Checkbox';
 
 interface SetupViewProps {
   setup: GameSetup;
@@ -37,13 +38,20 @@ const SetupView = ({ setup, setupFn, startFn, includeKeyDeny, includeNumberOfIte
           />
         )}
         {includeNumberOfItems && (
-          <Input
-            type="number"
-            label="Number of items"
-            name="number-of-items"
-            value={setup.numberOfItems || ''}
-            onChange={(e) => setupFn({ ...setup, numberOfItems: Math.max(e.target.valueAsNumber || 0, 0) })}
-          />
+          <div className="flex flex-col gap-1">
+            <p className="font-semibold text-white text-shadow-xs">Number of items</p>
+            <div className="flex gap-2">
+              {[1, 2, 4, 8, 16, 32].map((n) => (
+                <Checkbox
+                  key={n}
+                  label={n.toString()}
+                  name={n.toString()}
+                  checked={setup.numberOfItems === n}
+                  onCheck={(checked) => setupFn({ ...setup, numberOfItems: checked ? n : 0 })}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
       <button
