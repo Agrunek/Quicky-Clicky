@@ -1,6 +1,13 @@
+import clsx from 'clsx';
 import { createFileRoute } from '@tanstack/react-router';
+
 import useGameState from '@/hooks/useGameState';
 import SetupView from '@/components/SetupView';
+import { tw } from '@/utils/string';
+
+const boxStyleBase = tw`flex w-full flex-1 items-center justify-center rounded-2xl shadow-md`;
+const boxStyleWait = tw`bg-red-600`;
+const boxStyleActive = tw`bg-green-500`;
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
@@ -8,7 +15,17 @@ const SimpleReaction = () => {
 
   if (state.status === 'prep') return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} />;
 
-  return null;
+  if (state.status === 'dead') return <p className="text-white">{JSON.stringify(state.results)}</p>;
+
+  const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);
+
+  return (
+    <div className="flex min-h-screen w-full flex-col items-center justify-center p-32">
+      <div className={boxStyle}>
+        {!state.reactionReady && <p className="text-4xl font-bold text-white">Wait for green...</p>}
+      </div>
+    </div>
+  );
 };
 
 export const Route = createFileRoute('/simple-reaction')({
