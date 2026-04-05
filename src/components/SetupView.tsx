@@ -20,7 +20,7 @@ const SetupView = ({ setup, setupFn, startFn, includeKeyDeny, includeNumberOfIte
           label="Trial count"
           name="trial-count"
           value={setup.trialCount}
-          onChange={(e) => setupFn({ ...setup, trialCount: e.target.valueAsNumber || 0 })}
+          onChange={(e) => setupFn({ ...setup, trialCount: Math.max(e.target.valueAsNumber || 1, 1) })}
         />
         <KeybindInput
           label="Match key"
