@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import useGameState from '@/hooks/useGameState';
 import SetupView from '@/components/SetupView';
+import ResultsView from '@/components/ResultsView';
 import { tw } from '@/utils/string';
 
 const boxStyleBase = tw`flex w-full flex-1 items-center justify-center rounded-2xl shadow-md`;
@@ -15,7 +16,7 @@ const SimpleReaction = () => {
 
   if (state.status === 'prep') return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} />;
 
-  if (state.status === 'dead') return <p className="text-white">{JSON.stringify(state.results)}</p>;
+  if (state.status === 'dead') return <ResultsView />;
 
   const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);
 

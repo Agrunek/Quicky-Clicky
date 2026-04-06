@@ -1,0 +1,1 @@
+export const POSSIBLE_ITEMS_COMBINATIONS = [1, 2, 4, 8, 16, 32];
