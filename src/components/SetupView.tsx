@@ -3,6 +3,7 @@ import type { GameSetup } from '@/hooks/useGameState';
 import Input from '@/components/Input';
 import KeybindInput from '@/components/KeybindInput';
 import Checkbox from '@/components/Checkbox';
+import Button from '@/components/Button';
 import { POSSIBLE_ITEMS_COMBINATIONS } from '@/constants/constants';
 
 interface SetupViewProps {
@@ -55,16 +56,16 @@ const SetupView = ({ setup, setupFn, startFn, includeKeyDeny, includeNumberOfIte
           </div>
         )}
       </div>
-      <button
+      <Button
         type="button"
         disabled={
           !setup.trialCount || (includeKeyDeny && !setup.keyDeny) || (includeNumberOfItems && !setup.numberOfItems)
         }
         onClick={startFn}
-        className="mt-6 min-w-60 rounded-xl bg-violet-600 px-6 py-2 font-semibold text-white shadow-md transition duration-200 ease-in-out hover:bg-violet-700 focus:ring-2 focus:ring-violet-400 focus:ring-offset-2 focus:outline-none active:bg-violet-800 disabled:bg-slate-400"
+        className="mt-6"
       >
         START
-      </button>
+      </Button>
     </div>
   );
 };
