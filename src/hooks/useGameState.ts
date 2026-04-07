@@ -20,7 +20,7 @@ interface TrialResultStandard {
   isCorrect?: boolean;
 }
 
-type TrialResult = TrialResultFalseStart | TrialResultStandard;
+export type TrialResult = TrialResultFalseStart | TrialResultStandard;
 
 interface GameState {
   status: GameStatus;

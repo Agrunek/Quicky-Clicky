@@ -12,11 +12,15 @@ const boxStyleActive = tw`bg-green-500`;
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
-  const { state, setupFn, startFn } = useGameState(true);
+  const { state, setupFn, startFn, restartFn } = useGameState(true);
 
-  if (state.status === 'prep') return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} />;
+  if (state.status === 'prep') {
+    return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} />;
+  }
 
-  if (state.status === 'dead') return <ResultsView />;
+  if (state.status === 'dead') {
+    return <ResultsView name="Simple Reaction" id="simple-reaction" results={state.results} restartFn={restartFn} />;
+  }
 
   const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);
 
