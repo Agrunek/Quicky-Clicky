@@ -1,15 +1,16 @@
 import type { EvaluateReactionFunction } from '../hooks/useGameState';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import useGameState from '@/hooks/useGameState';
 import SetupView from '@/components/SetupView';
 import ResultsView from '@/components/ResultsView';
 import words from '@/constants/words.json' with { type: 'json' };
+import { POSSIBLE_FONT_FAMILIES, POSSIBLE_FONT_SIZES, POSSIBLE_FONT_WEIGHTS } from '@/constants/constants';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
-const PhysicalMatching = () => {
+const NameMatching = () => {
   const [wordPair, setWordPair] = useState<[string, string]>(['', '']);
 
   const evaluateReactionFn: EvaluateReactionFunction = useCallback(
@@ -40,9 +41,28 @@ const PhysicalMatching = () => {
 
     const compareWord = sameWord ? templateWord : filteredWords[Math.floor(Math.random() * filteredWords.length)];
 
-    /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setWordPair([templateWord, compareWord]);
   }, [state.setup, state.currentTrial, state.results]);
+
+  /* eslint-disable react-hooks/purity, react-hooks/exhaustive-deps */
+  const templateWordStyle = useMemo(
+    () => ({
+      fontFamily: POSSIBLE_FONT_FAMILIES[Math.floor(Math.random() * POSSIBLE_FONT_FAMILIES.length)],
+      fontSize: POSSIBLE_FONT_SIZES[Math.floor(Math.random() * POSSIBLE_FONT_SIZES.length)],
+      fontWeight: POSSIBLE_FONT_WEIGHTS[Math.floor(Math.random() * POSSIBLE_FONT_WEIGHTS.length)],
+    }),
+    [state.currentTrial],
+  );
+
+  const compareWordStyle = useMemo(
+    () => ({
+      fontFamily: POSSIBLE_FONT_FAMILIES[Math.floor(Math.random() * POSSIBLE_FONT_FAMILIES.length)],
+      fontSize: POSSIBLE_FONT_SIZES[Math.floor(Math.random() * POSSIBLE_FONT_SIZES.length)],
+      fontWeight: POSSIBLE_FONT_WEIGHTS[Math.floor(Math.random() * POSSIBLE_FONT_WEIGHTS.length)],
+    }),
+    [state.currentTrial],
+  );
+  /* eslint-enable react-hooks/purity, react-hooks/exhaustive-deps */
 
   if (state.status === 'prep') {
     return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} includeKeyDeny />;
@@ -63,14 +83,18 @@ const PhysicalMatching = () => {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
       <div className="flex items-center justify-around gap-6 rounded-2xl border border-white/50 bg-white/25 px-6 py-4 shadow-md backdrop-blur-xs">
-        <p className="mb-1 min-w-32 text-center text-4xl text-white">{wordPair[0]}</p>
+        <p style={templateWordStyle} className="mb-1 min-w-32 text-center text-white">
+          {wordPair[0]}
+        </p>
         <div className="h-16 w-0.5 bg-white/50" />
-        <p className="mb-1 min-w-32 text-center text-4xl text-white">{state.reactionReady && wordPair[1]}</p>
+        <p style={compareWordStyle} className="mb-1 min-w-32 text-center text-white">
+          {state.reactionReady && wordPair[1]}
+        </p>
       </div>
     </div>
   );
 };
 
-export const Route = createFileRoute('/physical-matching')({
-  component: PhysicalMatching,
+export const Route = createFileRoute('/name-matching')({
+  component: NameMatching,
 });

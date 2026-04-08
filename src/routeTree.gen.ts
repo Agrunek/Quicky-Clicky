@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimpleReactionRouteImport } from './routes/simple-reaction'
 import { Route as PhysicalMatchingRouteImport } from './routes/physical-matching'
+import { Route as NameMatchingRouteImport } from './routes/name-matching'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SimpleReactionRoute = SimpleReactionRouteImport.update({
@@ -23,6 +24,11 @@ const PhysicalMatchingRoute = PhysicalMatchingRouteImport.update({
   path: '/physical-matching',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NameMatchingRoute = NameMatchingRouteImport.update({
+  id: '/name-matching',
+  path: '/name-matching',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/name-matching': typeof NameMatchingRoute
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/name-matching': typeof NameMatchingRoute
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/name-matching': typeof NameMatchingRoute
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/physical-matching' | '/simple-reaction'
+  fullPaths: '/' | '/name-matching' | '/physical-matching' | '/simple-reaction'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/physical-matching' | '/simple-reaction'
-  id: '__root__' | '/' | '/physical-matching' | '/simple-reaction'
+  to: '/' | '/name-matching' | '/physical-matching' | '/simple-reaction'
+  id:
+    | '__root__'
+    | '/'
+    | '/name-matching'
+    | '/physical-matching'
+    | '/simple-reaction'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NameMatchingRoute: typeof NameMatchingRoute
   PhysicalMatchingRoute: typeof PhysicalMatchingRoute
   SimpleReactionRoute: typeof SimpleReactionRoute
 }
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PhysicalMatchingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/name-matching': {
+      id: '/name-matching'
+      path: '/name-matching'
+      fullPath: '/name-matching'
+      preLoaderRoute: typeof NameMatchingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +109,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NameMatchingRoute: NameMatchingRoute,
   PhysicalMatchingRoute: PhysicalMatchingRoute,
   SimpleReactionRoute: SimpleReactionRoute,
 }
