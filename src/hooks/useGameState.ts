@@ -38,7 +38,7 @@ type GameAction =
   | { type: 'PUSH_RESULT'; payload: TrialResult }
   | { type: 'RESTART' };
 
-type EvaluateReactionFunction = (reactionTimeMs: number, confirmation?: boolean) => TrialResultStandard;
+export type EvaluateReactionFunction = (reactionTimeMs: number, confirmation?: boolean) => TrialResultStandard;
 
 const DEFAULT_TRIAL_COUNT = 5;
 const DEFAULT_KEY_CONFIRM = 'Space';
