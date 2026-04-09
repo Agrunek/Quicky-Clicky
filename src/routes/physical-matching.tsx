@@ -48,7 +48,7 @@ const PhysicalMatching = () => {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center">
       <div className="flex items-center justify-around gap-6 rounded-2xl border border-white/50 bg-white/25 px-6 py-4 shadow-md backdrop-blur-xs">
         <p className="mb-1 min-w-32 text-center text-4xl text-white">{wordPair[0]}</p>
         <div className="h-16 w-0.5 bg-white/50" />
