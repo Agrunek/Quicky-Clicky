@@ -25,7 +25,7 @@ const SimpleReaction = () => {
   const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center p-32">
+    <div className="flex min-h-screen w-full items-center justify-center p-32">
       <div className={boxStyle}>
         {!state.reactionReady && <p className="text-4xl font-bold text-white">Wait for green...</p>}
       </div>
