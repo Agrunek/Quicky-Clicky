@@ -9,6 +9,7 @@ const Index = () => {
       <Link to="/simple-reaction">Simple Reaction</Link>
       <Link to="/physical-matching">Physical Matching</Link>
       <Link to="/name-matching">Name Matching</Link>
+      <Link to="/class-matching">Class Matching</Link>
     </div>
   );
 };
