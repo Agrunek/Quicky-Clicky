@@ -12,8 +12,11 @@ export const getWordPair = (history: TrialResult[], trialsRemaining: number): [s
   const correctHistory = history.filter((entry) => !entry.falseStart);
   const matchCount = correctHistory.filter((entry) => entry.intentMatch).length;
 
-  const originalMatchCount = Math.ceil(correctHistory.length / 2);
-  const matchChance = (originalMatchCount - matchCount) / trialsRemaining;
+  const totalTrials = correctHistory.length + trialsRemaining;
+  const targetMatches = totalTrials * 0.5;
+
+  const matchesNeeded = targetMatches - matchCount;
+  const matchChance = Math.max(0, Math.min(1, matchesNeeded / trialsRemaining));
 
   const sameWord = Math.random() < matchChance;
   const filteredWords = words.filter((word) => word !== templateWord);
