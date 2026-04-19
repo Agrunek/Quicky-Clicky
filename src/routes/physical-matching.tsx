@@ -1,6 +1,6 @@
 import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import useGameState from '@/hooks/useGameState';
@@ -26,7 +26,7 @@ const PhysicalMatching = () => {
 
   const { state, setupFn, startFn, restartFn } = useGameState(false, evaluateReactionFn);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setWordPair(getWordPair(state.results, state.setup.trialCount - state.currentTrial + 1));
   }, [state.setup, state.currentTrial, state.results]);
