@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VisualSearchRouteImport } from './routes/visual-search'
 import { Route as SimpleReactionRouteImport } from './routes/simple-reaction'
 import { Route as PhysicalMatchingRouteImport } from './routes/physical-matching'
 import { Route as NameMatchingRouteImport } from './routes/name-matching'
 import { Route as ClassMatchingRouteImport } from './routes/class-matching'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VisualSearchRoute = VisualSearchRouteImport.update({
+  id: '/visual-search',
+  path: '/visual-search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimpleReactionRoute = SimpleReactionRouteImport.update({
   id: '/simple-reaction',
   path: '/simple-reaction',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/name-matching': typeof NameMatchingRoute
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
+  '/visual-search': typeof VisualSearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/name-matching': typeof NameMatchingRoute
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
+  '/visual-search': typeof VisualSearchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +70,7 @@ export interface FileRoutesById {
   '/name-matching': typeof NameMatchingRoute
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
+  '/visual-search': typeof VisualSearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,6 +80,7 @@ export interface FileRouteTypes {
     | '/name-matching'
     | '/physical-matching'
     | '/simple-reaction'
+    | '/visual-search'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -78,6 +88,7 @@ export interface FileRouteTypes {
     | '/name-matching'
     | '/physical-matching'
     | '/simple-reaction'
+    | '/visual-search'
   id:
     | '__root__'
     | '/'
@@ -85,6 +96,7 @@ export interface FileRouteTypes {
     | '/name-matching'
     | '/physical-matching'
     | '/simple-reaction'
+    | '/visual-search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,10 +105,18 @@ export interface RootRouteChildren {
   NameMatchingRoute: typeof NameMatchingRoute
   PhysicalMatchingRoute: typeof PhysicalMatchingRoute
   SimpleReactionRoute: typeof SimpleReactionRoute
+  VisualSearchRoute: typeof VisualSearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/visual-search': {
+      id: '/visual-search'
+      path: '/visual-search'
+      fullPath: '/visual-search'
+      preLoaderRoute: typeof VisualSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simple-reaction': {
       id: '/simple-reaction'
       path: '/simple-reaction'
@@ -141,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   NameMatchingRoute: NameMatchingRoute,
   PhysicalMatchingRoute: PhysicalMatchingRoute,
   SimpleReactionRoute: SimpleReactionRoute,
+  VisualSearchRoute: VisualSearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

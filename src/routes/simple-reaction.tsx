@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { createFileRoute } from '@tanstack/react-router';
-
 import useGameState from '@/hooks/useGameState';
 import SetupView from '@/components/SetupView';
 import ResultsView from '@/components/ResultsView';

@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-
 import Link from '@/components/Link';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
@@ -10,6 +9,7 @@ const Index = () => {
       <Link to="/physical-matching">Physical Matching</Link>
       <Link to="/name-matching">Name Matching</Link>
       <Link to="/class-matching">Class Matching</Link>
+      <Link to="/visual-search">Visual Search</Link>
     </div>
   );
 };

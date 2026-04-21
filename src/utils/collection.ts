@@ -51,3 +51,34 @@ export const getSymbolPair = (history: TrialResult[], trialsRemaining: number): 
 
   return [templateSymbol, compareSymbol];
 };
+
+export const getAlphaPair = (
+  history: TrialResult[],
+  trialsRemaining: number,
+  numberOfAlphas: number,
+): [string, string[]] => {
+  const templateCollection = [...UPPERCASE_ALPHABET, 'I', 'O'];
+  const templateAlpha = getRandomItem(templateCollection);
+
+  const correctHistory = history.filter((entry) => !entry.falseStart);
+  const matchCount = correctHistory.filter((entry) => entry.intentMatch).length;
+
+  const totalTrials = correctHistory.length + trialsRemaining;
+  const targetMatches = totalTrials * 0.5;
+
+  const matchesNeeded = targetMatches - matchCount;
+  const matchChance = Math.max(0, Math.min(1, matchesNeeded / trialsRemaining));
+
+  const alphaIncluded = Math.random() < matchChance;
+  const filteredAlphas = templateCollection.filter((symbol) => symbol !== templateAlpha);
+
+  const compareAlphas = Array<string>(numberOfAlphas)
+    .fill('')
+    .map(() => getRandomItem(filteredAlphas));
+
+  if (alphaIncluded) {
+    compareAlphas[Math.floor(Math.random() * compareAlphas.length)] = templateAlpha;
+  }
+
+  return [templateAlpha, compareAlphas];
+};
