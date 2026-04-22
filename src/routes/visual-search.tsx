@@ -1,11 +1,12 @@
 import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import useGameState from '@/hooks/useGameState';
 import SetupView from '@/components/SetupView';
 import ResultsView from '@/components/ResultsView';
 import { getAlphaPair } from '@/utils/collection';
+import { getRectangularGrid } from '@/utils/geometry';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const VisualSearch = () => {
@@ -32,6 +33,8 @@ const VisualSearch = () => {
     );
   }, [state.setup, state.currentTrial, state.results]);
 
+  const [, cols] = useMemo(() => getRectangularGrid(state.setup.numberOfItems || 0), [state.setup]);
+
   if (state.status === 'prep') {
     return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} includeKeyDeny includeNumberOfItems />;
   }
@@ -53,7 +56,13 @@ const VisualSearch = () => {
       <div className="flex items-center justify-around gap-6 rounded-2xl border border-white/50 bg-white/25 px-6 py-4 shadow-md backdrop-blur-xs">
         <p className="mb-1 min-w-32 text-center text-4xl text-white">{alphaPair[0]}</p>
         <div className="h-16 w-0.5 bg-white/50" />
-        <p className="mb-1 min-w-32 text-center text-4xl text-white">{state.reactionReady && alphaPair[1].join()}</p>
+        <div style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }} className="grid min-w-32">
+          {alphaPair[1].map((alpha, idx) => (
+            <div key={idx} className="m-auto size-12 border border-white/50 bg-white/25">
+              {state.reactionReady && <p className="size-full text-center text-4xl text-white">{alpha}</p>}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
