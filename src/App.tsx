@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center">
-      <p className="text-2xl font-bold text-white">Press any key to continue...</p>
+      <p className="text-2xl font-bold text-white text-shadow-md">Press any key to continue...</p>
     </div>
   );
 };

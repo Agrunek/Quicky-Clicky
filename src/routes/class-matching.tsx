@@ -38,6 +38,7 @@ const ClassMatching = () => {
   const { state, setupFn, startFn, restartFn } = useGameState(false, evaluateReactionFn);
 
   useLayoutEffect(() => {
+    /* eslint-disable-next-line react-hooks/set-state-in-effect */
     setSymbolPair(getSymbolPair(state.results, state.setup.trialCount - state.currentTrial + 1));
   }, [state.setup, state.currentTrial, state.results]);
 
