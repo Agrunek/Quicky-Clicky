@@ -135,7 +135,18 @@ const useGameState = (mouse: boolean = false, fn: EvaluateReactionFunction = DEF
 
     const timer = setTimeout(() => {
       dispatch({ type: 'ACTIVATE' });
-      reactionReadyTimestampRef.current = performance.now();
+      requestAnimationFrame(() => {
+        const { port1, port2 } = new MessageChannel();
+
+        port1.onmessage = () => {
+          port1.onmessage = null;
+          port1.close();
+          port2.close();
+          reactionReadyTimestampRef.current = performance.now();
+        };
+
+        port2.postMessage(null);
+      });
     }, delay);
 
     return () => clearTimeout(timer);
