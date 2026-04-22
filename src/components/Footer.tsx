@@ -3,8 +3,8 @@ import { APP_VERSION, SOURCE_URL } from '@/constants/constants';
 const Footer = () => {
   return (
     <div className="fixed bottom-0 flex h-24 w-full items-end gap-8 px-8 pb-4">
-      <p className="flex-1 text-white/50">App Version: {APP_VERSION}</p>
-      <div className="flex max-w-150 items-center justify-center gap-6 rounded-2xl border border-white/50 bg-white/25 px-6 py-2 text-white shadow-md backdrop-blur-xs">
+      <p className="flex-1 text-black/50 dark:text-white/50">App Version: {APP_VERSION}</p>
+      <div className="flex max-w-150 items-center justify-center gap-6 rounded-2xl border border-black/25 bg-black/25 px-6 py-2 text-white shadow-md backdrop-blur-xs dark:border-white/50 dark:bg-white/25">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-12">
           <path
             fillRule="evenodd"
@@ -18,7 +18,7 @@ const Footer = () => {
           All credit goes to them <span className="font-bold">&#10003;</span>
         </p>
       </div>
-      <p className="flex-1 text-right text-white/50">{SOURCE_URL}</p>
+      <p className="flex-1 text-right text-black/50 dark:text-white/50">{SOURCE_URL}</p>
     </div>
   );
 };

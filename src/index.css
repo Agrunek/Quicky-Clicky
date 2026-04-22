@@ -6,7 +6,7 @@
   body {
     --color-gradient-base: --alpha(var(--color-rose-500) / 10%);
 
-    background-color: var(--color-indigo-400);
+    background-color: var(--color-indigo-300);
 
     @variant dark {
       background-color: var(--color-slate-900);

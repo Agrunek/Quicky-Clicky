@@ -5,6 +5,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import useGameState from '@/hooks/useGameState';
 import SetupView from '@/components/SetupView';
 import ResultsView from '@/components/ResultsView';
+import FloatingBackButton from '@/components/FloatingBackButton';
 import { getRandomItem, getWordPair } from '@/utils/collection';
 import { POSSIBLE_FONT_FAMILIES, POSSIBLE_FONT_SIZES, POSSIBLE_FONT_WEIGHTS } from '@/constants/constants';
 
@@ -67,17 +68,20 @@ const NameMatching = () => {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center">
-      <div className="flex items-center justify-around gap-6 rounded-2xl border border-white/50 bg-white/25 px-6 py-4 shadow-md backdrop-blur-xs">
-        <p style={templateWordStyle} className="mb-1 min-w-32 text-center text-white">
-          {wordPair[0]}
-        </p>
-        <div className="h-16 w-0.5 bg-white/50" />
-        <p style={compareWordStyle} className="mb-1 min-w-32 text-center text-white">
-          {state.reactionReady && wordPair[1]}
-        </p>
+    <>
+      <div className="flex min-h-screen w-full flex-col items-center justify-center">
+        <div className="flex items-center justify-around gap-6 rounded-2xl border border-black/25 bg-black/25 px-6 py-4 shadow-md backdrop-blur-xs dark:border-white/50 dark:bg-white/25">
+          <p style={templateWordStyle} className="mb-1 min-w-32 text-center text-white">
+            {wordPair[0]}
+          </p>
+          <div className="h-16 w-0.5 bg-white/50" />
+          <p style={compareWordStyle} className="mb-1 min-w-32 text-center text-white">
+            {state.reactionReady && wordPair[1]}
+          </p>
+        </div>
       </div>
-    </div>
+      <FloatingBackButton />
+    </>
   );
 };
 
