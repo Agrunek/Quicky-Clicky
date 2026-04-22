@@ -1,0 +1,1 @@
+var e=`1.0.0`,t=`https://github.com/Agrunek/Quicky-Clicky`,n=[1,2,4,8,16,32],r=[`cursive`,`monospace`,`sans-serif`,`serif`],i=[`1.5rem`,`1.875rem`,`2.25rem`],a=[`lighter`,`normal`,`bold`,`bolder`],o=[`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`],s=[`A`,`B`,`C`,`D`,`E`,`F`,`G`,`H`,`J`,`K`,`L`,`M`,`N`,`P`,`Q`,`R`,`S`,`T`,`U`,`V`,`W`,`X`,`Y`,`Z`];export{a,s as c,i,o as n,n as o,r,t as s,e as t};
