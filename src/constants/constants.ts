@@ -1,3 +1,6 @@
+export const APP_VERSION = '0.0.0';
+export const SOURCE_URL = 'https://github.com/Agrunek/Quicky-Clicky';
+
 export const POSSIBLE_ITEMS_COMBINATIONS = [1, 2, 4, 8, 16, 32];
 
 export const POSSIBLE_FONT_FAMILIES = ['cursive', 'monospace', 'sans-serif', 'serif'];
