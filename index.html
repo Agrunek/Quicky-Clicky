@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Quicky-Clicky/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quicky clicky</title>
+    <script>
+      document.documentElement.classList.toggle(
+        'dark',
+        localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+      );
+    </script>
+    <script type="module" crossorigin src="/Quicky-Clicky/assets/index-CvX7VcPa.js"></script>
+    <link rel="stylesheet" crossorigin href="/Quicky-Clicky/assets/index-DiAQqjbh.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
