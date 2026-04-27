@@ -44,21 +44,21 @@ const ResultsView = ({ name, results, restartFn, includeDecission }: ResultsView
         <div className="flex items-center gap-4">
           <p className="text-lg font-bold text-white text-shadow-md">False starts: {falseStartCount}</p>
           <p className="text-lg font-bold text-white text-shadow-md">Mean time: {meanTime.toFixed(2)} ms</p>
-          <p className="text-lg font-bold text-white text-shadow-md">Min time: {minTime} ms</p>
-          <p className="text-lg font-bold text-white text-shadow-md">Max time: {maxTime} ms</p>
+          <p className="text-lg font-bold text-white text-shadow-md">Min time: {minTime.toFixed(2)} ms</p>
+          <p className="text-lg font-bold text-white text-shadow-md">Max time: {maxTime.toFixed(2)} ms</p>
           <p className="text-lg font-bold text-white text-shadow-md">SD time: {sdTime.toFixed(2)} ms</p>
         </div>
         {includeDecission && (
           <>
             <div className="grid grid-cols-3 grid-rows-3 gap-x-6 gap-y-2 rounded-2xl border border-black/25 bg-black/25 p-4 shadow-md backdrop-blur-xs dark:border-white/50 dark:bg-white/25">
               <p className="font-bold text-white">Results</p>
-              <p className="font-bold text-white">Time [{totalTime} ms]</p>
+              <p className="font-bold text-white">Time [{totalTime.toFixed(2)} ms]</p>
               <p className="font-bold text-white">Errors [{totalErrors}]</p>
               <p className="text-white">Match trials ({matchCount})</p>
-              <p className="text-white">{totalMatchTime} ms</p>
+              <p className="text-white">{totalMatchTime.toFixed(2)} ms</p>
               <p className="text-white">{totalMatchErrors}</p>
               <p className="text-white">No-match trials ({noMatchCount})</p>
-              <p className="text-white">{totalNoMatchTime} ms</p>
+              <p className="text-white">{totalNoMatchTime.toFixed(2)} ms</p>
               <p className="text-white">{totalNoMatchErrors}</p>
             </div>
           </>
