@@ -1,12 +1,10 @@
 # Security Policy
 
-As with any application, You can encounter bugs, many bugs... Please, report
-them - it will definitely help me and improve the app by a long shot.
+As with any application, you may encounter bugs - sometimes many of them... Please report them; it will definitely help me improve the app.
 
 ## Supported Versions
 
-Only the latest version is being considered as supported. Any previous one is
-deprecated and is highly discouraged to use in production.
+Only the latest version is officially supported. All previous versions are considered deprecated and are not recommended for production use.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -15,5 +13,4 @@ deprecated and is highly discouraged to use in production.
 
 ## Reporting a Vulnerability
 
-If You are reporting a security vulnerability, please open a github issue for
-this repository. It is strongly suggested to use issue templates provided.
+If you discover a security vulnerability, please open a [GitHub issue](https://github.com/Agrunek/Quicky-Clicky/issues) in this repository. It is strongly recommended to use the provided issue templates.
