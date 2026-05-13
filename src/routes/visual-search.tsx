@@ -38,17 +38,17 @@ const VisualSearch = () => {
   const [, cols] = useMemo(() => getRectangularGrid(state.setup.numberOfItems || 0), [state.setup]);
 
   if (state.status === 'prep') {
-    return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} includeKeyDeny includeNumberOfItems />;
+    return <SetupView includeKeyDeny includeNumberOfItems setup={state.setup} setupFn={setupFn} startFn={startFn} />;
   }
 
   if (state.status === 'dead') {
     return (
       <ResultsView
-        name={`Visual Search (${state.setup.numberOfItems})`}
         id={`visual-search-${state.setup.numberOfItems}`}
-        results={state.results}
-        restartFn={restartFn}
+        name={`Visual Search (${state.setup.numberOfItems})`}
         includeDecission
+        restartFn={restartFn}
+        results={state.results}
       />
     );
   }

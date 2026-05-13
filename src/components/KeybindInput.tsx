@@ -30,10 +30,10 @@ const KeybindInput = ({ label, name, keybind, setKeybind }: KeybindInputProps) =
         {label}
       </label>
       <button
-        type="button"
         id={`input-${name}`}
-        onMouseDown={() => setListening(true)}
+        type="button"
         onFocus={() => setListening(true)}
+        onMouseDown={() => setListening(true)}
         className="rounded-md border border-black/50 bg-white px-2 py-1"
       >
         {listening

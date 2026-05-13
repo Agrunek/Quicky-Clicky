@@ -1,7 +1,11 @@
 {
   "printWidth": 120,
   "singleQuote": true,
-  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss",
+    "@xeonlink/prettier-plugin-organize-attributes"
+  ],
   "importOrder": [
     "<TYPES>",
     "<TYPES>^@tanstack.+",
@@ -26,5 +30,24 @@
   "importOrderTypeScriptVersion": "5.9.3",
   "importOrderCaseSensitive": true,
   "tailwindStylesheet": "./src/index.css",
-  "tailwindFunctions": ["tw"]
+  "tailwindFunctions": ["tw"],
+  "attributeGroups": [
+    "$ID",
+    "$NAME",
+    "$TYPE",
+    "$FOR",
+    "$TITLE",
+    "$VALUE",
+    "$ROLE",
+    "$ALT",
+    "$ARIA",
+    "$DEFAULT",
+    "$SRC",
+    "$HREF",
+    "$DATA",
+    "^style$",
+    "$CLASS"
+  ],
+  "attributeSort": "ASC",
+  "attributeIgnoreCase": false
 }

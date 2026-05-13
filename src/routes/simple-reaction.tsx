@@ -20,7 +20,7 @@ const SimpleReaction = () => {
   }
 
   if (state.status === 'dead') {
-    return <ResultsView name="Simple Reaction" id="simple-reaction" results={state.results} restartFn={restartFn} />;
+    return <ResultsView id="simple-reaction" name="Simple Reaction" restartFn={restartFn} results={state.results} />;
   }
 
   const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);

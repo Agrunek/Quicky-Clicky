@@ -9,9 +9,9 @@ const Checkbox = ({ label, name, checked, onCheck }: CheckboxProps) => {
   return (
     <div className="flex items-center gap-1">
       <input
-        type="checkbox"
-        name={name}
         id={`input-${name}`}
+        name={name}
+        type="checkbox"
         checked={checked}
         onChange={(e) => onCheck(e.target.checked)}
         className="size-4 accent-violet-600"

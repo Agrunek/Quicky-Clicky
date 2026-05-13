@@ -20,9 +20,9 @@ const Explanation = ({ children, title }: ExplanationProps) => {
     <>
       <button onClick={openModal} className="text-white">
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
           fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
           className="size-8 cursor-pointer"
         >
           <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
@@ -34,14 +34,14 @@ const Explanation = ({ children, title }: ExplanationProps) => {
         <div className="flex w-100 flex-col gap-2 rounded-2xl border border-black/25 bg-black/25 px-6 py-4 shadow-md backdrop-blur-md dark:border-white/50 dark:bg-white/25">
           <button onClick={closeModal} className="absolute top-4 right-6 text-white">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
               stroke="currentColor"
+              strokeWidth={1.5}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
               className="size-6 cursor-pointer"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              <path d="M6 18 18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
           <p className="font-bold text-white italic">{title} - explanation</p>

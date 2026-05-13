@@ -54,17 +54,17 @@ const NameMatching = () => {
   /* eslint-enable react-hooks/exhaustive-deps */
 
   if (state.status === 'prep') {
-    return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} includeKeyDeny />;
+    return <SetupView includeKeyDeny setup={state.setup} setupFn={setupFn} startFn={startFn} />;
   }
 
   if (state.status === 'dead') {
     return (
       <ResultsView
-        name="Physical Matching"
         id="physical-matching"
-        results={state.results}
-        restartFn={restartFn}
+        name="Physical Matching"
         includeDecission
+        restartFn={restartFn}
+        results={state.results}
       />
     );
   }

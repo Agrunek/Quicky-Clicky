@@ -13,9 +13,9 @@ const Input = ({ type, label, name, value, onChange }: InputProps) => {
         {label}
       </label>
       <input
-        type={type}
-        name={name}
         id={`input-${name}`}
+        name={name}
+        type={type}
         value={value}
         onChange={onChange}
         className="rounded-md border border-black/50 bg-white px-2 py-1"
