@@ -4,26 +4,40 @@
 
 @layer base {
   body {
-    --color-gradient-base: --alpha(var(--color-rose-500) / 10%);
-
-    background-color: var(--color-indigo-300);
+    --color-background: var(--color-zinc-200);
+    --color-gradient-1: --alpha(var(--color-amber-500) / 30%);
+    --color-gradient-2: --alpha(var(--color-lime-500) / 30%);
+    --color-gradient-3: --alpha(var(--color-emerald-500) / 30%);
+    --color-gradient-4: --alpha(var(--color-indigo-500) / 30%);
+    --color-gradient-5: --alpha(var(--color-rose-500) / 30%);
 
     @variant dark {
-      background-color: var(--color-slate-900);
+      --color-background: var(--color-stone-800);
+      --color-gradient-1: --alpha(var(--color-amber-500) / 15%);
+      --color-gradient-2: --alpha(var(--color-lime-500) / 15%);
+      --color-gradient-3: --alpha(var(--color-emerald-500) / 15%);
+      --color-gradient-4: --alpha(var(--color-indigo-500) / 15%);
+      --color-gradient-5: --alpha(var(--color-rose-500) / 15%);
     }
 
     min-height: 100vh;
     background-attachment: fixed;
     background-repeat: no-repeat;
-
+    background-color: var(--color-background);
     background-image:
-      radial-gradient(circle at 60% 0%, var(--color-gradient-base), transparent),
-      radial-gradient(circle at 0% 30%, var(--color-gradient-base), transparent),
-      radial-gradient(circle at 100% 80%, var(--color-gradient-base), transparent),
-      radial-gradient(circle at 50% 100%, var(--color-gradient-base), transparent);
+      radial-gradient(circle at 60% 20%, var(--color-gradient-1) 0%, transparent 50%),
+      radial-gradient(circle at 20% 30%, var(--color-gradient-2) 0%, transparent 50%),
+      radial-gradient(circle at 10% 80%, var(--color-gradient-3) 0%, transparent 50%),
+      radial-gradient(circle at 50% 70%, var(--color-gradient-4) 0%, transparent 50%),
+      radial-gradient(circle at 90% 40%, var(--color-gradient-5) 0%, transparent 50%);
 
     & * {
-      --color-gradient-base: initial;
+      --color-background: initial;
+      --color-gradient-1: initial;
+      --color-gradient-2: initial;
+      --color-gradient-3: initial;
+      --color-gradient-4: initial;
+      --color-gradient-5: initial;
     }
   }
 }
