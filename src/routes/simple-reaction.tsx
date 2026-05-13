@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 import { createFileRoute } from '@tanstack/react-router';
-import useGameState from '@/hooks/useGameState';
-import SetupView from '@/components/SetupView';
-import ResultsView from '@/components/ResultsView';
+import clsx from 'clsx';
+
 import FloatingBackButton from '@/components/FloatingBackButton';
+import ResultsView from '@/components/ResultsView';
+import SetupView from '@/components/SetupView';
+import useGameState from '@/hooks/useGameState';
 import { tw } from '@/utils/string';
 
 const boxStyleBase = tw`flex w-full flex-1 items-center justify-center rounded-2xl shadow-md`;

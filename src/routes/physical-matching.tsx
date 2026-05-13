@@ -2,10 +2,11 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import useGameState from '@/hooks/useGameState';
-import SetupView from '@/components/SetupView';
-import ResultsView from '@/components/ResultsView';
+
 import FloatingBackButton from '@/components/FloatingBackButton';
+import ResultsView from '@/components/ResultsView';
+import SetupView from '@/components/SetupView';
+import useGameState from '@/hooks/useGameState';
 import { getWordPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */

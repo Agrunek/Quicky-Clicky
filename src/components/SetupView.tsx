@@ -1,10 +1,10 @@
 import type { GameSetup } from '@/hooks/useGameState';
 
+import Button from '@/components/Button';
+import Checkbox from '@/components/Checkbox';
+import FloatingBackButton from '@/components/FloatingBackButton';
 import Input from '@/components/Input';
 import KeybindInput from '@/components/KeybindInput';
-import Checkbox from '@/components/Checkbox';
-import Button from '@/components/Button';
-import FloatingBackButton from '@/components/FloatingBackButton';
 import { POSSIBLE_ITEMS_COMBINATIONS } from '@/constants/constants';
 
 interface SetupViewProps {

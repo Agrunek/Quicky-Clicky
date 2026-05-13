@@ -2,12 +2,13 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import useGameState from '@/hooks/useGameState';
-import SetupView from '@/components/SetupView';
-import ResultsView from '@/components/ResultsView';
+
 import FloatingBackButton from '@/components/FloatingBackButton';
-import { getRandomItem, getWordPair } from '@/utils/collection';
+import ResultsView from '@/components/ResultsView';
+import SetupView from '@/components/SetupView';
 import { POSSIBLE_FONT_FAMILIES, POSSIBLE_FONT_SIZES, POSSIBLE_FONT_WEIGHTS } from '@/constants/constants';
+import useGameState from '@/hooks/useGameState';
+import { getRandomItem, getWordPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const NameMatching = () => {

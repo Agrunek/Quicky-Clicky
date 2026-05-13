@@ -1,7 +1,30 @@
 {
   "printWidth": 120,
   "singleQuote": true,
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "importOrder": [
+    "<TYPES>",
+    "<TYPES>^@tanstack.+",
+    "<TYPES>^@vitejs.+",
+    "<TYPES>^@eslint.+",
+    "<TYPES>^@tailwindcss.+",
+    "",
+    "<TYPES>^@.+",
+    "<TYPES>^[.]",
+    "",
+    "<BUILTIN_MODULES>",
+    "^react$",
+    "^@tanstack.+",
+    "^@vitejs.+",
+    "^@eslint.+",
+    "^@tailwindcss.+",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@.+",
+    "^[.]"
+  ],
+  "importOrderTypeScriptVersion": "5.9.3",
+  "importOrderCaseSensitive": true,
   "tailwindStylesheet": "./src/index.css",
   "tailwindFunctions": ["tw"]
 }

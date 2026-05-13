@@ -1,8 +1,9 @@
 import type { AnchorHTMLAttributes, Ref } from 'react';
 import type { LinkComponent, LinkComponentProps } from '@tanstack/react-router';
 
-import clsx from 'clsx';
 import { createLink } from '@tanstack/react-router';
+import clsx from 'clsx';
+
 import { tw } from '@/utils/string';
 
 interface BasicLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {

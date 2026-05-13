@@ -2,10 +2,11 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import useGameState from '@/hooks/useGameState';
-import SetupView from '@/components/SetupView';
-import ResultsView from '@/components/ResultsView';
+
 import FloatingBackButton from '@/components/FloatingBackButton';
+import ResultsView from '@/components/ResultsView';
+import SetupView from '@/components/SetupView';
+import useGameState from '@/hooks/useGameState';
 import { getAlphaPair } from '@/utils/collection';
 import { getRectangularGrid } from '@/utils/geometry';
 

@@ -1,5 +1,6 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+
 import Link from '@/components/Link';
 
 /* eslint-disable-next-line react-refresh/only-export-components */

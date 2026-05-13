@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
+import { RouterProvider, createMemoryHistory, createRouter } from '@tanstack/react-router';
 
 import { routeTree } from './routeTree.gen';
 

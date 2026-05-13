@@ -2,11 +2,10 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import useGameState from '@/hooks/useGameState';
-import SetupView from '@/components/SetupView';
-import ResultsView from '@/components/ResultsView';
+
 import FloatingBackButton from '@/components/FloatingBackButton';
-import { getRandomItem, getSymbolPair } from '@/utils/collection';
+import ResultsView from '@/components/ResultsView';
+import SetupView from '@/components/SetupView';
 import {
   DIGITS_STRINGS,
   POSSIBLE_FONT_FAMILIES,
@@ -14,6 +13,8 @@ import {
   POSSIBLE_FONT_WEIGHTS,
   UPPERCASE_ALPHABET,
 } from '@/constants/constants';
+import useGameState from '@/hooks/useGameState';
+import { getRandomItem, getSymbolPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const ClassMatching = () => {

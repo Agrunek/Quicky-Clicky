@@ -1,7 +1,8 @@
 import type { Theme } from '@/utils/theme';
 
-import clsx from 'clsx';
 import { useState } from 'react';
+import clsx from 'clsx';
+
 import { getTheme, setTheme } from '@/utils/theme';
 
 const Header = () => {
