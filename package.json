@@ -1,7 +1,7 @@
 {
   "name": "quicky-clicky",
   "homepage": "https://agrunek.github.io/Quicky-Clicky/",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "scripts": {
     "dev": "bunx --bun vite",

@@ -13,4 +13,4 @@ Only the latest version is officially supported. All previous versions are consi
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please open a [GitHub issue](https://github.com/Agrunek/Quicky-Clicky/issues) in this repository. It is strongly recommended to use the provided issue templates.
+If you discover a security vulnerability, please open a [GitHub advisory](https://github.com/Agrunek/Quicky-Clicky/security/advisories/new) for this repository. It is strongly recommended to use the provided template.

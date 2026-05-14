@@ -1,4 +1,4 @@
-export const APP_VERSION = '1.0.3';
+export const APP_VERSION = '1.0.4';
 export const SOURCE_URL = 'https://github.com/Agrunek/Quicky-Clicky';
 
 export const POSSIBLE_ITEMS_COMBINATIONS = [1, 2, 4, 8, 16, 32];
