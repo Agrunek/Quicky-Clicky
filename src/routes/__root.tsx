@@ -1,7 +1,7 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
-import Link from '@/components/Link';
+import Link from '@/components/atoms/Link';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Root = () => {
