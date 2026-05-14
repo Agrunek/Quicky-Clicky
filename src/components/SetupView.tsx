@@ -1,10 +1,10 @@
 import type { GameSetup } from '@/hooks/useGameState';
 
-import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import FloatingBackButton from '@/components/FloatingBackButton';
 import Input from '@/components/Input';
 import KeybindInput from '@/components/KeybindInput';
+import Button from '@/components/atoms/Button';
 import { POSSIBLE_ITEMS_COMBINATIONS } from '@/constants/constants';
 
 interface SetupViewProps {
@@ -59,7 +59,6 @@ const SetupView = ({ setup, setupFn, startFn, includeKeyDeny, includeNumberOfIte
           )}
         </div>
         <Button
-          type="button"
           disabled={
             !setup.trialCount || (includeKeyDeny && !setup.keyDeny) || (includeNumberOfItems && !setup.numberOfItems)
           }
