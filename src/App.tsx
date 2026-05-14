@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import Router from './Router';
+import CenterWrapper from './components/atoms/CenterWrapper';
+import Text from './components/atoms/Text';
 
 const App = () => {
   const [keyPressed, setKeyPressed] = useState(false);
@@ -17,9 +19,11 @@ const App = () => {
   if (keyPressed) return <Router />;
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center">
-      <p className="text-2xl font-bold text-white text-shadow-md">Press any key to continue...</p>
-    </div>
+    <CenterWrapper>
+      <Text as="h2" variant="heading" className="tracking-widest italic">
+        Press any key to continue...
+      </Text>
+    </CenterWrapper>
   );
 };
 
