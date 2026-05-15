@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import Explanation from '@/components/Explanation';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Link from '@/components/atoms/Link';
+import Explanation from '@/components/molecules/Explanation';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Index = () => {
