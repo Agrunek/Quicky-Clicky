@@ -6,12 +6,13 @@ import { tw } from '@/utils/string';
 
 type ButtonVariant = 'primary' | 'headless';
 
-interface ButtonProps {
+interface ButtonProps extends React.AriaAttributes {
   children?: React.ReactNode;
   className?: string;
   disabled?: boolean;
   onClick?: () => void;
   variant?: ButtonVariant;
+  role?: React.AriaRole;
 }
 
 const baseClassName = tw`cursor-pointer disabled:cursor-not-allowed`;
@@ -21,11 +22,11 @@ const variantClassNames: ClassNameDictionary<ButtonVariant> = {
   headless: tw``,
 };
 
-const Button = ({ children, className, disabled, onClick, variant = 'primary' }: ButtonProps) => {
+const Button = ({ children, className, variant = 'primary', ...props }: ButtonProps) => {
   const style = clsx(baseClassName, variantClassNames[variant], className);
 
   return (
-    <button disabled={disabled} onClick={onClick} className={style}>
+    <button className={style} {...props}>
       <span>{children}</span>
     </button>
   );
