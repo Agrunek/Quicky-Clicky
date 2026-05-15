@@ -31,7 +31,7 @@ const Explanation = ({ children, className, title }: ExplanationProps) => {
       </Button>
       <dialog ref={dialogRef} className="m-auto bg-transparent backdrop:bg-black/50">
         <Card className={style}>
-          <div className="mb-4 flex justify-between">
+          <div className="mb-2 flex justify-between">
             <Text as="h2" variant="subheading">
               {title}
             </Text>

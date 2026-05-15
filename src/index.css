@@ -41,3 +41,11 @@
     }
   }
 }
+
+@utility text-stroke-light {
+  -webkit-text-stroke: 2px --alpha(var(--color-black) / 35%);
+}
+
+@utility text-stroke-dark {
+  -webkit-text-stroke: 2px --alpha(var(--color-white) / 65%);
+}
