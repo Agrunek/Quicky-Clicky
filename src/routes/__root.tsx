@@ -4,12 +4,16 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import CenterWrapper from '@/components/atoms/CenterWrapper';
 import Link from '@/components/atoms/Link';
 import Text from '@/components/atoms/Text';
+import Footer from '@/components/organisms/Footer';
+import Header from '@/components/organisms/Header';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Root = () => {
   return (
     <>
+      <Header />
       <Outlet />
+      <Footer />
       <TanStackRouterDevtools />
     </>
   );

@@ -1,7 +1,6 @@
 import type { GameSetup } from '@/hooks/useGameState';
 
 import Checkbox from '@/components/Checkbox';
-import FloatingBackButton from '@/components/FloatingBackButton';
 import Input from '@/components/Input';
 import KeybindInput from '@/components/KeybindInput';
 import Button from '@/components/atoms/Button';
@@ -68,7 +67,6 @@ const SetupView = ({ setup, setupFn, startFn, includeKeyDeny, includeNumberOfIte
           START
         </Button>
       </div>
-      <FloatingBackButton />
     </>
   );
 };

@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import clsx from 'clsx';
 
-import FloatingBackButton from '@/components/FloatingBackButton';
 import ResultsView from '@/components/ResultsView';
 import SetupView from '@/components/SetupView';
 import useGameState from '@/hooks/useGameState';
@@ -32,7 +31,6 @@ const SimpleReaction = () => {
           {!state.reactionReady && <p className="text-4xl font-bold text-white">Wait for green...</p>}
         </div>
       </div>
-      <FloatingBackButton />
     </>
   );
 };

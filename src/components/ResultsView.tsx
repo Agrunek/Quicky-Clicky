@@ -1,6 +1,5 @@
 import type { TrialResult } from '@/hooks/useGameState';
 
-import FloatingBackButton from '@/components/FloatingBackButton';
 import Button from '@/components/atoms/Button';
 
 interface ResultsViewProps {
@@ -65,7 +64,6 @@ const ResultsView = ({ name, results, restartFn, includeDecission }: ResultsView
         )}
         <Button onClick={restartFn}>RESTART</Button>
       </div>
-      <FloatingBackButton />
     </>
   );
 };

@@ -3,7 +3,6 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
-import FloatingBackButton from '@/components/FloatingBackButton';
 import ResultsView from '@/components/ResultsView';
 import SetupView from '@/components/SetupView';
 import useGameState from '@/hooks/useGameState';
@@ -57,7 +56,6 @@ const PhysicalMatching = () => {
           <p className="mb-1 min-w-32 text-center text-4xl text-white">{state.reactionReady && wordPair[1]}</p>
         </div>
       </div>
-      <FloatingBackButton />
     </>
   );
 };

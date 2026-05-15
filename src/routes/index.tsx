@@ -1,7 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import Link from '@/components/atoms/Link';
 import Explanation from '@/components/molecules/Explanation';
 
@@ -9,7 +7,6 @@ import Explanation from '@/components/molecules/Explanation';
 const Index = () => {
   return (
     <>
-      <Header />
       <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4">
         <div className="flex gap-3">
           <Link to="/simple-reaction">Simple Reaction</Link>
@@ -76,7 +73,6 @@ const Index = () => {
           </Explanation>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,7 +1,5 @@
 export const getRectangularGrid = (numberOfItems: number): [number, number] => {
-  if (numberOfItems <= 0) {
-    return [0, 0];
-  }
+  if (numberOfItems <= 0) return [0, 0];
 
   let bestFit: [number, number] = [1, numberOfItems];
   let minDiff = numberOfItems - 1;
