@@ -1,7 +1,9 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
+import CenterWrapper from '@/components/atoms/CenterWrapper';
 import Link from '@/components/atoms/Link';
+import Text from '@/components/atoms/Text';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Root = () => {
@@ -16,20 +18,24 @@ const Root = () => {
 /* eslint-disable-next-line react-refresh/only-export-components */
 const NotFound = () => {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4">
-      <p className="text-2xl font-bold text-white text-shadow-md">404 Page not found!</p>
-      <Link to="/">TAKE ME TO HOME PAGE</Link>
-    </div>
+    <CenterWrapper className="flex-col gap-6">
+      <Text as="h1" variant="heading">
+        404 Page not found!
+      </Text>
+      <Link to="/">Take me to HOME PAGE</Link>
+    </CenterWrapper>
   );
 };
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const ErrorOccured = () => {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4">
-      <p className="text-2xl font-bold text-white text-shadow-md">Something went wrong!</p>
-      <Link to="/">TAKE ME TO HOME PAGE</Link>
-    </div>
+    <CenterWrapper className="flex-col gap-6">
+      <Text as="h1" variant="heading">
+        Something went wrong!
+      </Text>
+      <Link to="/">Take me to HOME PAGE</Link>
+    </CenterWrapper>
   );
 };
 
