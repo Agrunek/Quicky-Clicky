@@ -18,7 +18,7 @@ interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 const baseClassName = tw`cursor-pointer`;
 
 const variantClassNames: ClassNameDictionary<LinkVariant> = {
-  primary: tw`relative z-10 overflow-hidden rounded-xl bg-mauve-800 px-6 py-3 text-lg font-bold text-white shadow-md shadow-zinc-200/10 text-shadow-sm/20 text-shadow-stone-800 *:relative *:z-10 before:absolute before:inset-0 before:z-0 before:origin-bottom-left before:translate-y-full before:scale-x-0 before:scale-y-200 before:-rotate-45 before:bg-conic/decreasing before:from-violet-700 before:via-lime-300 before:to-violet-700 before:transition-transform before:duration-300 before:ease-out before:content-[''] hover:before:translate-y-1/2 hover:before:scale-x-100 hover:before:rotate-0 active:scale-95`,
+  primary: tw`relative z-10 overflow-hidden rounded-xl border-2 border-white bg-mauve-800 px-4 py-2 text-lg font-bold text-white shadow-md shadow-zinc-200/10 text-shadow-sm/20 text-shadow-stone-800 *:relative *:z-10 before:absolute before:inset-0 before:z-0 before:origin-bottom-left before:translate-y-full before:scale-x-0 before:scale-y-200 before:-rotate-45 before:bg-conic/decreasing before:from-violet-700 before:via-lime-300 before:to-violet-700 before:transition-transform before:duration-300 before:ease-out before:content-[''] hover:before:translate-y-1/2 hover:before:scale-x-100 hover:before:rotate-0 active:scale-95`,
   headless: tw``,
 };
 
