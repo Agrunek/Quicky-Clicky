@@ -5,19 +5,19 @@
 @layer base {
   body {
     --color-background: var(--color-zinc-200);
-    --color-gradient-1: --alpha(var(--color-amber-500) / 30%);
-    --color-gradient-2: --alpha(var(--color-lime-500) / 30%);
-    --color-gradient-3: --alpha(var(--color-emerald-500) / 30%);
-    --color-gradient-4: --alpha(var(--color-indigo-500) / 30%);
-    --color-gradient-5: --alpha(var(--color-rose-500) / 30%);
+    --color-gradient-1: --alpha(var(--color-amber-500) / 60%);
+    --color-gradient-2: --alpha(var(--color-lime-500) / 60%);
+    --color-gradient-3: --alpha(var(--color-emerald-500) / 60%);
+    --color-gradient-4: --alpha(var(--color-indigo-500) / 60%);
+    --color-gradient-5: --alpha(var(--color-rose-500) / 60%);
 
     @variant dark {
       --color-background: var(--color-stone-800);
-      --color-gradient-1: --alpha(var(--color-amber-500) / 15%);
-      --color-gradient-2: --alpha(var(--color-lime-500) / 15%);
-      --color-gradient-3: --alpha(var(--color-emerald-500) / 15%);
-      --color-gradient-4: --alpha(var(--color-indigo-500) / 15%);
-      --color-gradient-5: --alpha(var(--color-rose-500) / 15%);
+      --color-gradient-1: --alpha(var(--color-amber-500) / 30%);
+      --color-gradient-2: --alpha(var(--color-lime-500) / 30%);
+      --color-gradient-3: --alpha(var(--color-emerald-500) / 30%);
+      --color-gradient-4: --alpha(var(--color-indigo-500) / 30%);
+      --color-gradient-5: --alpha(var(--color-rose-500) / 30%);
     }
 
     min-height: 100vh;
