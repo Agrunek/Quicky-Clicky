@@ -7,30 +7,7 @@ export const POSSIBLE_FONT_FAMILIES = ['cursive', 'monospace', 'sans-serif', 'se
 export const POSSIBLE_FONT_SIZES = ['1.5rem', '1.875rem', '2.25rem'];
 export const POSSIBLE_FONT_WEIGHTS = ['lighter', 'normal', 'bold', 'bolder'];
 
-export const DIGITS_STRINGS = ['2', '3', '4', '5', '6', '7', '8', '9'];
-export const UPPERCASE_ALPHABET = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-];
+export const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+
+export const SIMPLE_ALPHABET = [...'ABCDEFGHJKLMNPQRSTUVWXYZ'];
+export const SIMPLE_DIGITS = [...'23456789'];

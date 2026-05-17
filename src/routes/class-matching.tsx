@@ -6,11 +6,11 @@ import { createFileRoute } from '@tanstack/react-router';
 import ResultsView from '@/components/ResultsView';
 import SetupView from '@/components/SetupView';
 import {
-  DIGITS_STRINGS,
   POSSIBLE_FONT_FAMILIES,
   POSSIBLE_FONT_SIZES,
   POSSIBLE_FONT_WEIGHTS,
-  UPPERCASE_ALPHABET,
+  SIMPLE_ALPHABET,
+  SIMPLE_DIGITS,
 } from '@/constants/constants';
 import useGameState from '@/hooks/useGameState';
 import { getRandomItem, getSymbolPair } from '@/utils/collection';
@@ -21,9 +21,9 @@ const ClassMatching = () => {
 
   const evaluateReactionFn: EvaluateReactionFunction = useCallback(
     (time, confirmation) => {
-      const symbolMatch = UPPERCASE_ALPHABET.includes(symbolPair[0])
-        ? UPPERCASE_ALPHABET.includes(symbolPair[1])
-        : DIGITS_STRINGS.includes(symbolPair[1]);
+      const symbolMatch = SIMPLE_ALPHABET.includes(symbolPair[0])
+        ? SIMPLE_ALPHABET.includes(symbolPair[1])
+        : SIMPLE_DIGITS.includes(symbolPair[1]);
 
       return {
         falseStart: false,
