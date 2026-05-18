@@ -42,10 +42,10 @@
   }
 }
 
-@utility text-stroke-light {
+@utility text-stroke-light-mode {
   -webkit-text-stroke: 2px --alpha(var(--color-black) / 35%);
 }
 
-@utility text-stroke-dark {
+@utility text-stroke-dark-mode {
   -webkit-text-stroke: 2px --alpha(var(--color-white) / 65%);
 }
