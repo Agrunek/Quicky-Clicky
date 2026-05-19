@@ -10,7 +10,7 @@ import Explanation from '@/components/molecules/Explanation';
 const Index = () => {
   return (
     <CenterWrapper className="-mt-8 flex-col gap-6">
-      <Text as="h1" variant="heading" className="font-[cursive] text-3xl!">
+      <Text as="h1" variant="heading" className="font-[cursive]">
         Pick {}
         <span className="bg-linear-90/increasing from-violet-700 via-lime-300 to-violet-700 bg-clip-text text-5xl font-black tracking-widest text-transparent italic text-shadow-none text-stroke-light-mode dark:text-stroke-dark-mode">
           your

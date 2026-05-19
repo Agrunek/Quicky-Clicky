@@ -19,7 +19,7 @@ type TextVariant = 'heading' | 'paragraph' | 'subheading';
 const baseClassName = tw`oldstyle-nums slashed-zero`;
 
 const variantClassNames: ClassNameDictionary<TextVariant> = {
-  heading: tw`text-2xl font-extrabold text-black text-shadow-lg/50 text-shadow-zinc-200 dark:text-white dark:text-shadow-stone-800`,
+  heading: tw`text-3xl font-extrabold text-black text-shadow-lg/50 text-shadow-zinc-200 dark:text-white dark:text-shadow-stone-800`,
   paragraph: tw`text-base font-normal text-white text-shadow-none`,
   subheading: tw`text-xl font-semibold text-white text-shadow-sm/30 text-shadow-stone-800`,
 };

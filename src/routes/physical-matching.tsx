@@ -3,7 +3,7 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
-import ResultsView from '@/components/ResultsView';
+import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
 import { getWordPair } from '@/utils/collection';
@@ -36,15 +36,7 @@ const PhysicalMatching = () => {
   }
 
   if (state.status === 'dead') {
-    return (
-      <ResultsView
-        id="physical-matching"
-        name="Physical Matching"
-        includeDecission
-        restartFn={restartFn}
-        results={state.results}
-      />
-    );
+    return <ResultView name="Physical Matching" includeDecission restartFn={restartFn} results={state.results} />;
   }
 
   return (

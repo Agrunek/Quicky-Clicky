@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import clsx from 'clsx';
 
-import ResultsView from '@/components/ResultsView';
+import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
 import { tw } from '@/utils/string';
@@ -19,7 +19,7 @@ const SimpleReaction = () => {
   }
 
   if (state.status === 'dead') {
-    return <ResultsView id="simple-reaction" name="Simple Reaction" restartFn={restartFn} results={state.results} />;
+    return <ResultView name="Simple Reaction" restartFn={restartFn} results={state.results} />;
   }
 
   const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);

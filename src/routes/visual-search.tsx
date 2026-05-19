@@ -3,7 +3,7 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
-import ResultsView from '@/components/ResultsView';
+import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
 import { getAlphaPair } from '@/utils/collection';
@@ -42,8 +42,7 @@ const VisualSearch = () => {
 
   if (state.status === 'dead') {
     return (
-      <ResultsView
-        id={`visual-search-${state.setup.numberOfItems}`}
+      <ResultView
         name={`Visual Search (${state.setup.numberOfItems})`}
         includeDecission
         restartFn={restartFn}
