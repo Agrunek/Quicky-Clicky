@@ -6,14 +6,14 @@ interface RadioGroupProps {
   className?: string;
   label: string;
   name: string;
-  schema: (string | number)[];
-  value?: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  schema: (number | string)[];
+  value?: number | string;
 }
 
 const baseClassName = tw`inline-flex flex-col`;
 
-const RadioGroup = ({ className, label, name, schema, value, onChange }: RadioGroupProps) => {
+const RadioGroup = ({ className, label, name, onChange, schema, value }: RadioGroupProps) => {
   const style = clsx(baseClassName, className);
 
   return (

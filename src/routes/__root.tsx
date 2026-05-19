@@ -45,6 +45,6 @@ const ErrorOccured = () => {
 
 export const Route = createRootRoute({
   component: () => <Root />,
-  notFoundComponent: () => <NotFound />,
   errorComponent: () => <ErrorOccured />,
+  notFoundComponent: () => <NotFound />,
 });

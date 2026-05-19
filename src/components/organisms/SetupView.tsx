@@ -10,14 +10,14 @@ import KeyboardInput from '@/components/molecules/KeyboardInput';
 import { POSSIBLE_ITEMS_COMBINATIONS } from '@/constants/constants';
 
 interface SetupViewProps {
+  includeKeyDeny?: boolean;
+  includeNumberOfItems?: boolean;
   setup: GameSetup;
   setupFn: (setup: GameSetup) => void;
   startFn: () => void;
-  includeKeyDeny?: boolean;
-  includeNumberOfItems?: boolean;
 }
 
-const SetupView = ({ setup, setupFn, startFn, includeKeyDeny, includeNumberOfItems }: SetupViewProps) => {
+const SetupView = ({ includeKeyDeny, includeNumberOfItems, setup, setupFn, startFn }: SetupViewProps) => {
   const act = !setup.trialCount || (includeKeyDeny && !setup.keyDeny) || (includeNumberOfItems && !setup.numberOfItems);
 
   return (

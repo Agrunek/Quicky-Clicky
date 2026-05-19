@@ -9,13 +9,13 @@ interface KeyboardInputProps {
   className?: string;
   label: string;
   name: string;
-  value?: string;
   onChange: (key: string) => void;
+  value?: string;
 }
 
 const baseClassName = tw`inline-flex flex-col`;
 
-const KeyboardInput = ({ label, name, value, onChange, className }: KeyboardInputProps) => {
+const KeyboardInput = ({ className, label, name, onChange, value }: KeyboardInputProps) => {
   const [listening, setListening] = useState(false);
 
   const style = clsx(baseClassName, className);

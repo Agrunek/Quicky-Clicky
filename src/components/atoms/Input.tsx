@@ -4,16 +4,16 @@ import { tw } from '@/utils/string';
 
 interface InputProps {
   className?: string;
-  type?: React.HTMLInputTypeAttribute;
   label: string;
   name: string;
-  value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: React.HTMLInputTypeAttribute;
+  value: number | string;
 }
 
 const baseClassName = tw`inline-flex flex-col`;
 
-const Input = ({ type, label, name, value, onChange, className }: InputProps) => {
+const Input = ({ className, label, name, onChange, type, value }: InputProps) => {
   const style = clsx(baseClassName, className);
 
   return (

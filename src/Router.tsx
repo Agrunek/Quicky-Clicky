@@ -6,7 +6,7 @@ const history = createMemoryHistory({
   initialEntries: ['/'],
 });
 
-const router = createRouter({ routeTree, history });
+const router = createRouter({ history, routeTree });
 
 declare module '@tanstack/react-router' {
   interface Register {

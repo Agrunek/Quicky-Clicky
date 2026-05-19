@@ -1,13 +1,33 @@
 import { useEffect, useReducer, useRef } from 'react';
 
-type GameStatus = 'prep' | 'live' | 'dead';
+export type EvaluateReactionFunction = (reactionTimeMs: number, confirmation?: boolean) => TrialResultStandard;
 
 export interface GameSetup {
-  trialCount: number;
   keyConfirm: string;
   keyDeny?: string;
   numberOfItems?: number;
+  trialCount: number;
 }
+
+export type TrialResult = TrialResultFalseStart | TrialResultStandard;
+
+type GameAction =
+  | { payload: GameSetup; type: 'SETUP' }
+  | { payload: TrialResult; type: 'PUSH_RESULT' }
+  | { type: 'ACTIVATE' }
+  | { type: 'NEXT' }
+  | { type: 'RESTART' }
+  | { type: 'START' };
+
+interface GameState {
+  currentTrial: number;
+  reactionReady: boolean;
+  results: TrialResult[];
+  setup: GameSetup;
+  status: GameStatus;
+}
+
+type GameStatus = 'dead' | 'live' | 'prep';
 
 interface TrialResultFalseStart {
   falseStart: true;
@@ -15,30 +35,10 @@ interface TrialResultFalseStart {
 
 interface TrialResultStandard {
   falseStart: false;
-  reactionTimeMs: number;
   intentMatch?: boolean;
   isCorrect?: boolean;
+  reactionTimeMs: number;
 }
-
-export type TrialResult = TrialResultFalseStart | TrialResultStandard;
-
-interface GameState {
-  status: GameStatus;
-  setup: GameSetup;
-  currentTrial: number;
-  reactionReady: boolean;
-  results: TrialResult[];
-}
-
-type GameAction =
-  | { type: 'SETUP'; payload: GameSetup }
-  | { type: 'START' }
-  | { type: 'NEXT' }
-  | { type: 'ACTIVATE' }
-  | { type: 'PUSH_RESULT'; payload: TrialResult }
-  | { type: 'RESTART' };
-
-export type EvaluateReactionFunction = (reactionTimeMs: number, confirmation?: boolean) => TrialResultStandard;
 
 const DEFAULT_TRIAL_COUNT = 5;
 const DEFAULT_KEY_CONFIRM = 'Space';
@@ -47,24 +47,18 @@ const MIN_DELAY_MS = 1500;
 const MAX_DELAY_MS = 4000;
 
 const INITIAL_GAME_STATE: GameState = {
-  status: 'prep',
-  setup: { trialCount: DEFAULT_TRIAL_COUNT, keyConfirm: DEFAULT_KEY_CONFIRM },
   currentTrial: 1,
   reactionReady: false,
   results: [],
+  setup: { keyConfirm: DEFAULT_KEY_CONFIRM, trialCount: DEFAULT_TRIAL_COUNT },
+  status: 'prep',
 };
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
   switch (action.type) {
-    case 'SETUP':
-      return { ...state, setup: { ...action.payload } };
-
-    case 'START':
-      return { ...state, status: 'live' };
-
     case 'NEXT':
       if (state.currentTrial >= state.setup.trialCount) {
-        return { ...state, status: 'dead', reactionReady: false };
+        return { ...state, reactionReady: false, status: 'dead' };
       } else {
         return { ...state, currentTrial: state.currentTrial + 1, reactionReady: false };
       }
@@ -78,6 +72,12 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     case 'RESTART':
       return { ...INITIAL_GAME_STATE, setup: { ...state.setup } };
 
+    case 'SETUP':
+      return { ...state, setup: { ...action.payload } };
+
+    case 'START':
+      return { ...state, status: 'live' };
+
     default:
       return state;
   }
@@ -85,7 +85,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
 
 const useGameState = (mouse: boolean = false, fn: EvaluateReactionFunction = DEFAULT_EVALUATION_FUNCTION) => {
   const [state, dispatch] = useReducer(gameReducer, INITIAL_GAME_STATE);
-  const reactionReadyTimestampRef = useRef<number | null>(null);
+  const reactionReadyTimestampRef = useRef<null | number>(null);
   const reactionConsumedRef = useRef(false);
   const ignoreInputRef = useRef(true);
 
@@ -98,14 +98,14 @@ const useGameState = (mouse: boolean = false, fn: EvaluateReactionFunction = DEF
 
       if (reactionReadyTimestampRef.current === null) {
         reactionReadyTimestampRef.current = null;
-        dispatch({ type: 'PUSH_RESULT', payload: { falseStart: true } });
+        dispatch({ payload: { falseStart: true }, type: 'PUSH_RESULT' });
         dispatch({ type: 'NEXT' });
         return;
       }
 
       const reactionTimeMs = performance.now() - reactionReadyTimestampRef.current;
       reactionReadyTimestampRef.current = null;
-      dispatch({ type: 'PUSH_RESULT', payload: fn(reactionTimeMs, confirmation) });
+      dispatch({ payload: fn(reactionTimeMs, confirmation), type: 'PUSH_RESULT' });
       dispatch({ type: 'NEXT' });
     };
 
@@ -153,7 +153,7 @@ const useGameState = (mouse: boolean = false, fn: EvaluateReactionFunction = DEF
   }, [state.status, state.currentTrial]);
 
   const setupFn = (setup: GameSetup) => {
-    if (state.status === 'prep') dispatch({ type: 'SETUP', payload: setup });
+    if (state.status === 'prep') dispatch({ payload: setup, type: 'SETUP' });
   };
 
   const startFn = () => {
@@ -173,7 +173,7 @@ const useGameState = (mouse: boolean = false, fn: EvaluateReactionFunction = DEF
     dispatch({ type: 'RESTART' });
   };
 
-  return { state, setupFn, startFn, restartFn };
+  return { restartFn, setupFn, startFn, state };
 };
 
 export default useGameState;

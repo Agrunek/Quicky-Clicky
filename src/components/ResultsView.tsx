@@ -3,14 +3,14 @@ import type { TrialResult } from '@/hooks/useGameState';
 import Button from '@/components/atoms/Button';
 
 interface ResultsViewProps {
-  name: string;
   id: string;
-  results: TrialResult[];
-  restartFn: () => void;
   includeDecission?: boolean;
+  name: string;
+  restartFn: () => void;
+  results: TrialResult[];
 }
 
-const ResultsView = ({ name, results, restartFn, includeDecission }: ResultsViewProps) => {
+const ResultsView = ({ includeDecission, name, restartFn, results }: ResultsViewProps) => {
   const nonFalseStartResults = results.filter((result) => !result.falseStart);
   const mappedTimes = nonFalseStartResults.map((result) => result.reactionTimeMs);
 

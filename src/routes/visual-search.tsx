@@ -17,15 +17,15 @@ const VisualSearch = () => {
     (time, confirmation) => {
       return {
         falseStart: false,
-        reactionTimeMs: time,
         intentMatch: alphaPair[1].includes(alphaPair[0]),
         isCorrect: confirmation === alphaPair[1].includes(alphaPair[0]),
+        reactionTimeMs: time,
       };
     },
     [alphaPair],
   );
 
-  const { state, setupFn, startFn, restartFn } = useGameState(false, evaluateReactionFn);
+  const { restartFn, setupFn, startFn, state } = useGameState(false, evaluateReactionFn);
 
   useLayoutEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */

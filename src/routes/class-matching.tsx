@@ -27,15 +27,15 @@ const ClassMatching = () => {
 
       return {
         falseStart: false,
-        reactionTimeMs: time,
         intentMatch: symbolMatch,
         isCorrect: confirmation === symbolMatch,
+        reactionTimeMs: time,
       };
     },
     [symbolPair],
   );
 
-  const { state, setupFn, startFn, restartFn } = useGameState(false, evaluateReactionFn);
+  const { restartFn, setupFn, startFn, state } = useGameState(false, evaluateReactionFn);
 
   useLayoutEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */

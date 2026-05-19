@@ -17,15 +17,15 @@ const NameMatching = () => {
     (time, confirmation) => {
       return {
         falseStart: false,
-        reactionTimeMs: time,
         intentMatch: wordPair[0] === wordPair[1],
         isCorrect: confirmation === (wordPair[0] === wordPair[1]),
+        reactionTimeMs: time,
       };
     },
     [wordPair],
   );
 
-  const { state, setupFn, startFn, restartFn } = useGameState(false, evaluateReactionFn);
+  const { restartFn, setupFn, startFn, state } = useGameState(false, evaluateReactionFn);
 
   useLayoutEffect(() => {
     /* eslint-disable-next-line react-hooks/set-state-in-effect */

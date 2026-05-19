@@ -12,7 +12,7 @@ const boxStyleActive = tw`bg-green-500`;
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
-  const { state, setupFn, startFn, restartFn } = useGameState(true);
+  const { restartFn, setupFn, startFn, state } = useGameState(true);
 
   if (state.status === 'prep') {
     return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} />;
