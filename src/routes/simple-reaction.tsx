@@ -1,18 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router';
 import clsx from 'clsx';
 
+import Card from '@/components/atoms/Card';
+import CenterWrapper from '@/components/atoms/CenterWrapper';
+import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
 import { tw } from '@/utils/string';
 
-const boxStyleBase = tw`flex w-full flex-1 items-center justify-center rounded-2xl shadow-md`;
-const boxStyleWait = tw`bg-red-600`;
-const boxStyleActive = tw`bg-green-500`;
+const baseClassName = tw`flex aspect-video w-3/5 items-center justify-center`;
+const activeClassName = tw`bg-green-500!`;
+const inactiveClassName = tw`bg-red-500!`;
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
   const { restartFn, setupFn, startFn, state } = useGameState(true);
+
+  const style = clsx(baseClassName, state.reactionReady ? activeClassName : inactiveClassName);
 
   if (state.status === 'prep') {
     return <SetupView setup={state.setup} setupFn={setupFn} startFn={startFn} />;
@@ -22,16 +27,16 @@ const SimpleReaction = () => {
     return <ResultView name="Simple Reaction" restartFn={restartFn} results={state.results} />;
   }
 
-  const boxStyle = clsx(boxStyleBase, state.reactionReady ? boxStyleActive : boxStyleWait);
-
   return (
-    <>
-      <div className="flex min-h-screen w-full flex-col items-center justify-center p-32">
-        <div className={boxStyle}>
-          {!state.reactionReady && <p className="text-4xl font-bold text-white">Wait for green...</p>}
-        </div>
-      </div>
-    </>
+    <CenterWrapper>
+      <Card className={style}>
+        {!state.reactionReady && (
+          <Text as="h2" variant="subheading" className="font-[cursive] text-6xl!">
+            Ready?
+          </Text>
+        )}
+      </Card>
+    </CenterWrapper>
   );
 };
 
