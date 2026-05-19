@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import clsx from 'clsx';
 
 import ResultsView from '@/components/ResultsView';
-import SetupView from '@/components/SetupView';
+import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
 import { tw } from '@/utils/string';
 

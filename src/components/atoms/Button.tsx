@@ -10,7 +10,10 @@ interface ButtonProps extends React.AriaAttributes {
   children?: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  id?: string;
+  name?: string;
   onClick?: () => void;
+  value?: string;
   variant?: ButtonVariant;
   role?: React.AriaRole;
 }

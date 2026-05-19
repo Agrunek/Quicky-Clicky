@@ -4,7 +4,7 @@ import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import ResultsView from '@/components/ResultsView';
-import SetupView from '@/components/SetupView';
+import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
 import { getAlphaPair } from '@/utils/collection';
 import { getRectangularGrid } from '@/utils/geometry';
