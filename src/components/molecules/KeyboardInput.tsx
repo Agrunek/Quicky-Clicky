@@ -15,10 +15,14 @@ interface KeyboardInputProps {
 
 const baseClassName = tw`inline-flex flex-col`;
 
+const buttonBaseClassName = tw`relative rounded-tl-md rounded-tr-xl rounded-b-xl border-2 border-white bg-mauve-800 px-4 py-2 text-left text-white shadow-md shadow-zinc-200/10`;
+const buttonListeningClassName = tw`outline-auto`;
+
 const KeyboardInput = ({ className, label, name, onChange, value }: KeyboardInputProps) => {
   const [listening, setListening] = useState(false);
 
   const style = clsx(baseClassName, className);
+  const buttonStyle = clsx(buttonBaseClassName, listening && buttonListeningClassName);
 
   useEffect(() => {
     if (!listening) return;
@@ -56,7 +60,7 @@ const KeyboardInput = ({ className, label, name, onChange, value }: KeyboardInpu
         aria-pressed={listening}
         onClick={() => setListening(true)}
         variant="headless"
-        className="relative rounded-tl-md rounded-tr-xl rounded-b-xl border-2 border-white bg-mauve-800 px-4 py-2 text-left text-white shadow-md shadow-zinc-200/10"
+        className={buttonStyle}
       >
         {listening
           ? 'Press any key...'

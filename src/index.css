@@ -49,3 +49,7 @@
 @utility text-stroke-dark-mode {
   -webkit-text-stroke: 2px --alpha(var(--color-white) / 65%);
 }
+
+@utility outline-auto {
+  outline: auto;
+}
