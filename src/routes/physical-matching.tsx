@@ -3,6 +3,9 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
+import Card from '@/components/atoms/Card';
+import CenterWrapper from '@/components/atoms/CenterWrapper';
+import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
@@ -13,14 +16,12 @@ const PhysicalMatching = () => {
   const [wordPair, setWordPair] = useState<[string, string]>(['', '']);
 
   const evaluateReactionFn: EvaluateReactionFunction = useCallback(
-    (time, confirmation) => {
-      return {
-        falseStart: false,
-        intentMatch: wordPair[0] === wordPair[1],
-        isCorrect: confirmation === (wordPair[0] === wordPair[1]),
-        reactionTimeMs: time,
-      };
-    },
+    (time, confirmation) => ({
+      falseStart: false,
+      intentMatch: wordPair[0] === wordPair[1],
+      isCorrect: confirmation === (wordPair[0] === wordPair[1]),
+      reactionTimeMs: time,
+    }),
     [wordPair],
   );
 
@@ -40,18 +41,20 @@ const PhysicalMatching = () => {
   }
 
   return (
-    <>
-      <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <div className="flex items-center justify-around gap-6 rounded-2xl border border-black/25 bg-black/25 px-6 py-4 shadow-md backdrop-blur-xs dark:border-white/50 dark:bg-white/25">
-          <p className="mb-1 min-w-32 text-center text-4xl text-white">{wordPair[0]}</p>
-          <div className="h-16 w-0.5 bg-white/50" />
-          <p className="mb-1 min-w-32 text-center text-4xl text-white">{state.reactionReady && wordPair[1]}</p>
-        </div>
-      </div>
-    </>
+    <CenterWrapper>
+      <Card className="flex w-80 items-center justify-between gap-4 p-4">
+        <Text variant="subheading" className="flex-1 text-center text-3xl!">
+          {wordPair[0]}
+        </Text>
+        <div className="h-16 w-0.5 bg-white/50" />
+        <Text variant="subheading" className="flex-1 text-center text-3xl!">
+          {state.reactionReady && wordPair[1]}
+        </Text>
+      </Card>
+    </CenterWrapper>
   );
 };
 
 export const Route = createFileRoute('/physical-matching')({
-  component: PhysicalMatching,
+  component: () => <PhysicalMatching />,
 });

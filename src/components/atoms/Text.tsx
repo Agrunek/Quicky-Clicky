@@ -11,6 +11,7 @@ interface TextProps {
   as?: (typeof ACCEPTED_ELEMENTS)[number];
   children?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   variant?: TextVariant;
 }
 
@@ -24,10 +25,10 @@ const variantClassNames: ClassNameDictionary<TextVariant> = {
   subheading: tw`text-xl font-semibold text-white text-shadow-sm/30 text-shadow-stone-800`,
 };
 
-const Text = ({ as: Element = 'p', children, className, variant = 'paragraph' }: TextProps) => {
+const Text = ({ as: Element = 'p', className, variant = 'paragraph', ...props }: TextProps) => {
   const style = clsx(baseClassName, variantClassNames[variant], className);
 
-  return <Element className={style}>{children}</Element>;
+  return <Element className={style} {...props} />;
 };
 
 export default Text;

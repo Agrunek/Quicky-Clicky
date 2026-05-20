@@ -31,7 +31,7 @@ const SimpleReaction = () => {
     <CenterWrapper>
       <Card className={style}>
         {!state.reactionReady && (
-          <Text as="h2" variant="subheading" className="font-[cursive] text-6xl!">
+          <Text variant="subheading" className="font-[cursive] text-6xl!">
             Ready?
           </Text>
         )}

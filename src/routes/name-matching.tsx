@@ -3,25 +3,25 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
+import Card from '@/components/atoms/Card';
+import CenterWrapper from '@/components/atoms/CenterWrapper';
+import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
-import { POSSIBLE_FONT_FAMILIES, POSSIBLE_FONT_SIZES, POSSIBLE_FONT_WEIGHTS } from '@/constants/constants';
 import useGameState from '@/hooks/useGameState';
-import { getRandomItem, getWordPair } from '@/utils/collection';
+import { getRandomTextStyle, getWordPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const NameMatching = () => {
   const [wordPair, setWordPair] = useState<[string, string]>(['', '']);
 
   const evaluateReactionFn: EvaluateReactionFunction = useCallback(
-    (time, confirmation) => {
-      return {
-        falseStart: false,
-        intentMatch: wordPair[0] === wordPair[1],
-        isCorrect: confirmation === (wordPair[0] === wordPair[1]),
-        reactionTimeMs: time,
-      };
-    },
+    (time, confirmation) => ({
+      falseStart: false,
+      intentMatch: wordPair[0] === wordPair[1],
+      isCorrect: confirmation === (wordPair[0] === wordPair[1]),
+      reactionTimeMs: time,
+    }),
     [wordPair],
   );
 
@@ -33,23 +33,8 @@ const NameMatching = () => {
   }, [state.setup, state.currentTrial, state.results]);
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  const templateWordStyle = useMemo(
-    () => ({
-      fontFamily: getRandomItem(POSSIBLE_FONT_FAMILIES),
-      fontSize: getRandomItem(POSSIBLE_FONT_SIZES),
-      fontWeight: getRandomItem(POSSIBLE_FONT_WEIGHTS),
-    }),
-    [state.currentTrial],
-  );
-
-  const compareWordStyle = useMemo(
-    () => ({
-      fontFamily: getRandomItem(POSSIBLE_FONT_FAMILIES),
-      fontSize: getRandomItem(POSSIBLE_FONT_SIZES),
-      fontWeight: getRandomItem(POSSIBLE_FONT_WEIGHTS),
-    }),
-    [state.currentTrial],
-  );
+  const templateWordStyle = useMemo(() => getRandomTextStyle(), [state.currentTrial]);
+  const compareWordStyle = useMemo(() => getRandomTextStyle(), [state.currentTrial]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   if (state.status === 'prep') {
@@ -61,22 +46,20 @@ const NameMatching = () => {
   }
 
   return (
-    <>
-      <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <div className="flex items-center justify-around gap-6 rounded-2xl border border-black/25 bg-black/25 px-6 py-4 shadow-md backdrop-blur-xs dark:border-white/50 dark:bg-white/25">
-          <p style={templateWordStyle} className="mb-1 min-w-32 text-center text-white">
-            {wordPair[0]}
-          </p>
-          <div className="h-16 w-0.5 bg-white/50" />
-          <p style={compareWordStyle} className="mb-1 min-w-32 text-center text-white">
-            {state.reactionReady && wordPair[1]}
-          </p>
-        </div>
-      </div>
-    </>
+    <CenterWrapper>
+      <Card className="flex w-80 items-center justify-between gap-4 p-4">
+        <Text variant="subheading" style={templateWordStyle} className="flex-1 text-center">
+          {wordPair[0]}
+        </Text>
+        <div className="h-16 w-0.5 bg-white/50" />
+        <Text variant="subheading" style={compareWordStyle} className="flex-1 text-center">
+          {state.reactionReady && wordPair[1]}
+        </Text>
+      </Card>
+    </CenterWrapper>
   );
 };
 
 export const Route = createFileRoute('/name-matching')({
-  component: NameMatching,
+  component: () => <NameMatching />,
 });
