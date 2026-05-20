@@ -3,17 +3,14 @@ import type { EvaluateReactionFunction } from '@/hooks/useGameState';
 import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
+import Card from '@/components/atoms/Card';
+import CenterWrapper from '@/components/atoms/CenterWrapper';
+import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
-import {
-  POSSIBLE_FONT_FAMILIES,
-  POSSIBLE_FONT_SIZES,
-  POSSIBLE_FONT_WEIGHTS,
-  SIMPLE_ALPHABET,
-  SIMPLE_DIGITS,
-} from '@/constants/constants';
+import { SIMPLE_ALPHABET, SIMPLE_DIGITS } from '@/constants/constants';
 import useGameState from '@/hooks/useGameState';
-import { getRandomItem, getSymbolPair } from '@/utils/collection';
+import { getRandomTextStyle, getSymbolPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const ClassMatching = () => {
@@ -43,23 +40,8 @@ const ClassMatching = () => {
   }, [state.setup, state.currentTrial, state.results]);
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  const templateSymbolStyle = useMemo(
-    () => ({
-      fontFamily: getRandomItem(POSSIBLE_FONT_FAMILIES),
-      fontSize: getRandomItem(POSSIBLE_FONT_SIZES),
-      fontWeight: getRandomItem(POSSIBLE_FONT_WEIGHTS),
-    }),
-    [state.currentTrial],
-  );
-
-  const compareSymbolStyle = useMemo(
-    () => ({
-      fontFamily: getRandomItem(POSSIBLE_FONT_FAMILIES),
-      fontSize: getRandomItem(POSSIBLE_FONT_SIZES),
-      fontWeight: getRandomItem(POSSIBLE_FONT_WEIGHTS),
-    }),
-    [state.currentTrial],
-  );
+  const templateSymbolStyle = useMemo(() => getRandomTextStyle(), [state.currentTrial]);
+  const compareSymbolStyle = useMemo(() => getRandomTextStyle(), [state.currentTrial]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   if (state.status === 'prep') {
@@ -71,22 +53,20 @@ const ClassMatching = () => {
   }
 
   return (
-    <>
-      <div className="flex min-h-screen w-full flex-col items-center justify-center">
-        <div className="flex items-center justify-around gap-6 rounded-2xl border border-black/25 bg-black/25 px-6 py-4 shadow-md backdrop-blur-xs dark:border-white/50 dark:bg-white/25">
-          <p style={templateSymbolStyle} className="mb-1 min-w-32 text-center text-white">
-            {symbolPair[0]}
-          </p>
-          <div className="h-16 w-0.5 bg-white/50" />
-          <p style={compareSymbolStyle} className="mb-1 min-w-32 text-center text-white">
-            {state.reactionReady && symbolPair[1]}
-          </p>
-        </div>
-      </div>
-    </>
+    <CenterWrapper>
+      <Card className="flex w-80 items-center justify-between gap-4 p-4">
+        <Text variant="subheading" style={templateSymbolStyle} className="flex-1 text-center">
+          {symbolPair[0]}
+        </Text>
+        <div className="h-16 w-0.5 bg-white/50" />
+        <Text variant="subheading" style={compareSymbolStyle} className="flex-1 text-center">
+          {state.reactionReady && symbolPair[1]}
+        </Text>
+      </Card>
+    </CenterWrapper>
   );
 };
 
 export const Route = createFileRoute('/class-matching')({
-  component: ClassMatching,
+  component: () => <ClassMatching />,
 });
