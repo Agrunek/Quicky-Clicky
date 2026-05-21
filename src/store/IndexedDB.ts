@@ -10,30 +10,36 @@ const DB: IDBDatabase | null = await new Promise((resolve) => {
     resolve(null);
   };
 
+  DBOpenRequest.onblocked = () => {
+    console.warn('Database upgrade is blocked by another open tab/window.');
+  };
+
   DBOpenRequest.onupgradeneeded = () => {
-    const _db = DBOpenRequest.result;
-
-    _db.onversionchange = () => {
-      _db.close();
-      console.warn('Please, refresh the page for new version of database.');
-    };
-
     // Create store for the DB
 
     console.info('New version of database has been created.');
   };
 
   DBOpenRequest.onsuccess = () => {
-    const _db = DBOpenRequest.result;
-
-    _db.onversionchange = () => {
-      _db.close();
-      console.warn('Please, refresh the page for new version of database.');
-    };
-
     console.info('Successfuly connected to database! Have fun 🥳');
-    resolve(_db);
+    resolve(DBOpenRequest.result);
   };
 });
+
+if (DB) {
+  DB.onerror = (event) => {
+    const request = event.target as IDBRequest | null;
+    console.error(`Database error: ${request?.error}`);
+  };
+
+  DB.onclose = () => {
+    console.info('Database has been closed!');
+  };
+
+  DB.onversionchange = () => {
+    DB.close();
+    console.warn('Please, refresh the page for new version of database.');
+  };
+}
 
 export default DB;
