@@ -9,6 +9,7 @@ import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
+import { VISUAL_SEARCH_STORE } from '@/store/IndexedDB';
 import { getAlphaPair } from '@/utils/collection';
 import { getRectangularGrid } from '@/utils/geometry';
 
@@ -42,7 +43,13 @@ const VisualSearch = () => {
 
   if (state.status === 'dead') {
     return (
-      <ResultView name={`Visual Search (${size})`} includeDecission restartFn={restartFn} results={state.results} />
+      <ResultView
+        name={`Visual Search (${size})`}
+        includeDecission
+        restartFn={restartFn}
+        results={state.results}
+        storeName={VISUAL_SEARCH_STORE}
+      />
     );
   }
 

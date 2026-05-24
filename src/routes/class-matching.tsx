@@ -10,6 +10,7 @@ import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import { SIMPLE_ALPHABET, SIMPLE_DIGITS } from '@/constants/constants';
 import useGameState from '@/hooks/useGameState';
+import { CLASS_MATCHING_STORE } from '@/store/IndexedDB';
 import { getRandomTextStyle, getSymbolPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
@@ -49,7 +50,15 @@ const ClassMatching = () => {
   }
 
   if (state.status === 'dead') {
-    return <ResultView name="Class Matching" includeDecission restartFn={restartFn} results={state.results} />;
+    return (
+      <ResultView
+        name="Class Matching"
+        includeDecission
+        restartFn={restartFn}
+        results={state.results}
+        storeName={CLASS_MATCHING_STORE}
+      />
+    );
   }
 
   return (

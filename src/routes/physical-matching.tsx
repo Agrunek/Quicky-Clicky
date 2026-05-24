@@ -9,6 +9,7 @@ import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
+import { PHYSICAL_MATCHING_STORE } from '@/store/IndexedDB';
 import { getWordPair } from '@/utils/collection';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
@@ -37,7 +38,15 @@ const PhysicalMatching = () => {
   }
 
   if (state.status === 'dead') {
-    return <ResultView name="Physical Matching" includeDecission restartFn={restartFn} results={state.results} />;
+    return (
+      <ResultView
+        name="Physical Matching"
+        includeDecission
+        restartFn={restartFn}
+        results={state.results}
+        storeName={PHYSICAL_MATCHING_STORE}
+      />
+    );
   }
 
   return (

@@ -1,20 +1,25 @@
 import type { TrialResult } from '@/hooks/useGameState';
+import type { StoreName } from '@/store/IndexedDB';
+
+import { useEffect } from 'react';
 
 import Button from '@/components/atoms/Button';
 import Card from '@/components/atoms/Card';
 import CenterWrapper from '@/components/atoms/CenterWrapper';
 import Text from '@/components/atoms/Text';
+import { saveGameAttempt } from '@/store/IndexedDB';
 
 interface ResultViewProps {
   includeDecission?: boolean;
   name: string;
   restartFn: () => void;
   results: TrialResult[];
+  storeName: StoreName;
 }
 
 const sum = (arr: number[]) => arr.reduce((sum, val) => sum + val, 0);
 
-const ResultView = ({ includeDecission, name, restartFn, results }: ResultViewProps) => {
+const ResultView = ({ includeDecission, name, restartFn, results, storeName }: ResultViewProps) => {
   const nonFalseStarts = results.filter((res) => !res.falseStart);
   const falseStartCount = results.length - nonFalseStarts.length;
 
@@ -35,6 +40,13 @@ const ResultView = ({ includeDecission, name, restartFn, results }: ResultViewPr
 
   const totalTime = totalMatchTime + totalNoMatchTime;
   const totalErrors = totalMatchErrors + totalNoMatchErrors;
+
+  useEffect(() => {
+    (async () => {
+      const timestamp = await saveGameAttempt(storeName, results);
+      console.log(timestamp);
+    })();
+  }, [storeName, results]);
 
   return (
     <CenterWrapper className="flex-col gap-10">

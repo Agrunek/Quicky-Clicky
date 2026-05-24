@@ -7,6 +7,7 @@ import Text from '@/components/atoms/Text';
 import ResultView from '@/components/organisms/ResultView';
 import SetupView from '@/components/organisms/SetupView';
 import useGameState from '@/hooks/useGameState';
+import { SIMPLE_REACTION_STORE } from '@/store/IndexedDB';
 import { tw } from '@/utils/string';
 
 const baseClassName = tw`flex aspect-video w-3/5 items-center justify-center`;
@@ -24,7 +25,14 @@ const SimpleReaction = () => {
   }
 
   if (state.status === 'dead') {
-    return <ResultView name="Simple Reaction" restartFn={restartFn} results={state.results} />;
+    return (
+      <ResultView
+        name="Simple Reaction"
+        restartFn={restartFn}
+        results={state.results}
+        storeName={SIMPLE_REACTION_STORE}
+      />
+    );
   }
 
   return (
