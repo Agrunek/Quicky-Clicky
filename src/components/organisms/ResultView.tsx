@@ -7,6 +7,7 @@ import Button from '@/components/atoms/Button';
 import Card from '@/components/atoms/Card';
 import CenterWrapper from '@/components/atoms/CenterWrapper';
 import Text from '@/components/atoms/Text';
+import { useNotiStack } from '@/contexts/NotiStackContext';
 import { saveGameAttempt } from '@/store/IndexedDB';
 
 interface ResultViewProps {
@@ -20,6 +21,8 @@ interface ResultViewProps {
 const sum = (arr: number[]) => arr.reduce((sum, val) => sum + val, 0);
 
 const ResultView = ({ includeDecission, name, restartFn, results, storeName }: ResultViewProps) => {
+  const { enqueue } = useNotiStack();
+
   const nonFalseStarts = results.filter((res) => !res.falseStart);
   const falseStartCount = results.length - nonFalseStarts.length;
 
@@ -44,9 +47,25 @@ const ResultView = ({ includeDecission, name, restartFn, results, storeName }: R
   useEffect(() => {
     (async () => {
       const timestamp = await saveGameAttempt(storeName, results);
-      console.log(timestamp);
+
+      if (isNaN(timestamp)) {
+        enqueue('Database has not started!', {
+          duration: 3000,
+          variant: 'warning',
+        });
+      } else if (timestamp < 0) {
+        enqueue('Something went wrong while saving the attempt!', {
+          duration: 3000,
+          variant: 'error',
+        });
+      } else {
+        enqueue('Attempt has been saved!', {
+          duration: 3000,
+          variant: 'success',
+        });
+      }
     })();
-  }, [storeName, results]);
+  }, [storeName, results, enqueue]);
 
   return (
     <CenterWrapper className="flex-col gap-10">

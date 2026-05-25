@@ -99,6 +99,11 @@ export const saveGameAttempt = async (storeName: StoreName, attempt: TrialResult
       const transaction = DB.transaction(storeName, 'readwrite');
 
       transaction.oncomplete = () => resolve(timestamp);
+      transaction.onerror = () => {
+        console.error(`Operation error: ${transaction.error}`);
+        resolve(-1);
+      };
+
       transaction.objectStore(storeName).add({ attempt, timestamp, uuid } satisfies StoreEntry);
     } else {
       resolve(NaN);

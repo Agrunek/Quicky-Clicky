@@ -6,16 +6,17 @@ import Link from '@/components/atoms/Link';
 import Text from '@/components/atoms/Text';
 import Footer from '@/components/organisms/Footer';
 import Header from '@/components/organisms/Header';
+import { NotiStackProvider } from '@/contexts/NotiStackContext';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Root = () => {
   return (
-    <>
+    <NotiStackProvider>
       <Header />
       <Outlet />
       <Footer />
       <TanStackRouterDevtools />
-    </>
+    </NotiStackProvider>
   );
 };
 

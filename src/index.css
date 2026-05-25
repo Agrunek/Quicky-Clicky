@@ -2,6 +2,35 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme inline {
+  --animate-noti-in: noti-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-noti-out: noti-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes noti-in {
+    from {
+      opacity: 0;
+      transform: translateX(calc(100% + theme(spacing.5)));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes noti-out {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+      max-height: theme(spacing.36);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(calc(100% + theme(spacing.5)));
+      max-height: theme(spacing.0);
+    }
+  }
+}
+
 @layer base {
   body {
     --color-background: var(--color-zinc-200);
