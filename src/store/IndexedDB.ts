@@ -96,15 +96,21 @@ export const saveGameAttempt = async (storeName: StoreName, attempt: TrialResult
     if (DB) {
       const uuid = crypto.randomUUID();
       const timestamp = Date.now();
-      const transaction = DB.transaction(storeName, 'readwrite');
 
-      transaction.oncomplete = () => resolve(timestamp);
-      transaction.onerror = () => {
-        console.error(`Operation error: ${transaction.error}`);
-        resolve(-1);
-      };
+      try {
+        const transaction = DB.transaction(storeName, 'readwrite');
 
-      transaction.objectStore(storeName).add({ attempt, timestamp, uuid } satisfies StoreEntry);
+        transaction.oncomplete = () => resolve(timestamp);
+        transaction.onerror = () => {
+          console.error(`Operation error: ${transaction.error}`);
+          resolve(-1);
+        };
+
+        transaction.objectStore(storeName).add({ attempt, timestamp, uuid } satisfies StoreEntry);
+      } catch (error) {
+        console.error(`Transaction error: ${error}`);
+        resolve(-2);
+      }
     } else {
       resolve(NaN);
     }

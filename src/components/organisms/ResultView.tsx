@@ -48,22 +48,9 @@ const ResultView = ({ includeDecission, name, restartFn, results, storeName }: R
     (async () => {
       const timestamp = await saveGameAttempt(storeName, results);
 
-      if (isNaN(timestamp)) {
-        enqueue('Database has not started!', {
-          duration: 3000,
-          variant: 'warning',
-        });
-      } else if (timestamp < 0) {
-        enqueue('Something went wrong while saving the attempt!', {
-          duration: 3000,
-          variant: 'error',
-        });
-      } else {
-        enqueue('Attempt has been saved!', {
-          duration: 3000,
-          variant: 'success',
-        });
-      }
+      if (isNaN(timestamp)) enqueue('Database has not started!', { duration: 3000, variant: 'warning' });
+      else if (timestamp < 0) enqueue('Save operation failed for some reason!', { duration: 3000, variant: 'error' });
+      else enqueue('Attempt has been saved!', { duration: 3000, variant: 'success' });
     })();
   }, [storeName, results, enqueue]);
 

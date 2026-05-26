@@ -78,7 +78,7 @@ const Snackbar = ({
         </Button>
       </div>
       {duration > 0 && (
-        <div className="h-1 bg-white/10">
+        <div className="h-1 bg-white/25">
           <div
             style={{ width: `${progress}%` }}
             className="h-full bg-white/50 transition-[width] duration-50 ease-linear"
