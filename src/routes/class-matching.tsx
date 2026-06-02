@@ -52,6 +52,7 @@ const ClassMatching = () => {
   if (state.status === 'dead') {
     return (
       <ResultView
+        id="class-matching"
         name="Class Matching"
         includeDecission
         restartFn={restartFn}

@@ -40,6 +40,7 @@ const PhysicalMatching = () => {
   if (state.status === 'dead') {
     return (
       <ResultView
+        id="physical-matching"
         name="Physical Matching"
         includeDecission
         restartFn={restartFn}

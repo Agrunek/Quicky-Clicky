@@ -27,6 +27,7 @@ const SimpleReaction = () => {
   if (state.status === 'dead') {
     return (
       <ResultView
+        id="simple-reaction"
         name="Simple Reaction"
         restartFn={restartFn}
         results={state.results}

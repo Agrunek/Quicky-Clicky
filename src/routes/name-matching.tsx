@@ -45,7 +45,8 @@ const NameMatching = () => {
   if (state.status === 'dead') {
     return (
       <ResultView
-        name="Physical Matching"
+        id="name-matching"
+        name="Name Matching"
         includeDecission
         restartFn={restartFn}
         results={state.results}

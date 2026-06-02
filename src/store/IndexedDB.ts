@@ -3,6 +3,7 @@ import type { TrialResult } from '@/hooks/useGameState';
 const DB_NAME = 'GAMES_HISTORY';
 const DB_VERSION = 1;
 const UUID_KEY = 'uuid';
+const GAME_ID_KEY = 'gameid';
 const TIMESTAMP_KEY = 'timestamp';
 const ATTEMPT_KEY = 'attempt';
 
@@ -29,6 +30,7 @@ const ALL_STORES = [
 
 interface StoreEntry {
   [ATTEMPT_KEY]: TrialResult[];
+  [GAME_ID_KEY]: string;
   [TIMESTAMP_KEY]: number;
   [UUID_KEY]: string;
 }
@@ -51,26 +53,31 @@ const DB: IDBDatabase | null = await new Promise((resolve) => {
 
     if (!config.objectStoreNames.contains(SIMPLE_REACTION_STORE)) {
       const objectStore = config.createObjectStore(SIMPLE_REACTION_STORE, { keyPath: UUID_KEY });
+      objectStore.createIndex(GAME_ID_KEY, GAME_ID_KEY);
       objectStore.createIndex(TIMESTAMP_KEY, TIMESTAMP_KEY);
     }
 
     if (!config.objectStoreNames.contains(PHYSICAL_MATCHING_STORE)) {
       const objectStore = config.createObjectStore(PHYSICAL_MATCHING_STORE, { keyPath: UUID_KEY });
+      objectStore.createIndex(GAME_ID_KEY, GAME_ID_KEY);
       objectStore.createIndex(TIMESTAMP_KEY, TIMESTAMP_KEY);
     }
 
     if (!config.objectStoreNames.contains(NAME_MATCHING_STORE)) {
       const objectStore = config.createObjectStore(NAME_MATCHING_STORE, { keyPath: UUID_KEY });
+      objectStore.createIndex(GAME_ID_KEY, GAME_ID_KEY);
       objectStore.createIndex(TIMESTAMP_KEY, TIMESTAMP_KEY);
     }
 
     if (!config.objectStoreNames.contains(CLASS_MATCHING_STORE)) {
       const objectStore = config.createObjectStore(CLASS_MATCHING_STORE, { keyPath: UUID_KEY });
+      objectStore.createIndex(GAME_ID_KEY, GAME_ID_KEY);
       objectStore.createIndex(TIMESTAMP_KEY, TIMESTAMP_KEY);
     }
 
     if (!config.objectStoreNames.contains(VISUAL_SEARCH_STORE)) {
       const objectStore = config.createObjectStore(VISUAL_SEARCH_STORE, { keyPath: UUID_KEY });
+      objectStore.createIndex(GAME_ID_KEY, GAME_ID_KEY);
       objectStore.createIndex(TIMESTAMP_KEY, TIMESTAMP_KEY);
     }
 
@@ -99,7 +106,7 @@ if (DB) {
   };
 }
 
-export const saveGameAttempt = async (storeName: StoreName, attempt: TrialResult[]) => {
+export const saveGameAttempt = async (storeName: StoreName, gameid: string, attempt: TrialResult[]) => {
   return new Promise<number>((resolve) => {
     if (DB) {
       const uuid = crypto.randomUUID();
@@ -114,7 +121,7 @@ export const saveGameAttempt = async (storeName: StoreName, attempt: TrialResult
           resolve(-1);
         };
 
-        transaction.objectStore(storeName).add({ attempt, timestamp, uuid } satisfies StoreEntry);
+        transaction.objectStore(storeName).add({ attempt, gameid, timestamp, uuid } satisfies StoreEntry);
       } catch (error) {
         console.error(`Transaction error: ${error}`);
         resolve(-2);

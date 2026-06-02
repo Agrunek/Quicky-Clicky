@@ -44,6 +44,7 @@ const VisualSearch = () => {
   if (state.status === 'dead') {
     return (
       <ResultView
+        id={`visual-search-${size}`}
         name={`Visual Search (${size})`}
         includeDecission
         restartFn={restartFn}
