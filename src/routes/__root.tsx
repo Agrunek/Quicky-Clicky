@@ -1,4 +1,6 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import type { FileRoutesByPath } from '@tanstack/react-router';
+
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import CenterWrapper from '@/components/atoms/CenterWrapper';
@@ -7,6 +9,10 @@ import Text from '@/components/atoms/Text';
 import Footer from '@/components/organisms/Footer';
 import Header from '@/components/organisms/Header';
 import { NotiStackProvider } from '@/contexts/NotiStackContext';
+
+interface RouterContext {
+  routePaths: (keyof FileRoutesByPath)[];
+}
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Root = () => {
@@ -44,7 +50,7 @@ const ErrorOccured = () => {
   );
 };
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => <Root />,
   errorComponent: () => <ErrorOccured />,
   notFoundComponent: () => <NotFound />,

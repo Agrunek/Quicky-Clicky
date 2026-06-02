@@ -15,6 +15,7 @@ import { Route as PhysicalMatchingRouteImport } from './routes/physical-matching
 import { Route as NameMatchingRouteImport } from './routes/name-matching'
 import { Route as ClassMatchingRouteImport } from './routes/class-matching'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HistoryGameRouteImport } from './routes/history.$game'
 
 const VisualSearchRoute = VisualSearchRouteImport.update({
   id: '/visual-search',
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HistoryGameRoute = HistoryGameRouteImport.update({
+  id: '/history/$game',
+  path: '/history/$game',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
   '/visual-search': typeof VisualSearchRoute
+  '/history/$game': typeof HistoryGameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
   '/visual-search': typeof VisualSearchRoute
+  '/history/$game': typeof HistoryGameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/physical-matching': typeof PhysicalMatchingRoute
   '/simple-reaction': typeof SimpleReactionRoute
   '/visual-search': typeof VisualSearchRoute
+  '/history/$game': typeof HistoryGameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/physical-matching'
     | '/simple-reaction'
     | '/visual-search'
+    | '/history/$game'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/physical-matching'
     | '/simple-reaction'
     | '/visual-search'
+    | '/history/$game'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/physical-matching'
     | '/simple-reaction'
     | '/visual-search'
+    | '/history/$game'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   PhysicalMatchingRoute: typeof PhysicalMatchingRoute
   SimpleReactionRoute: typeof SimpleReactionRoute
   VisualSearchRoute: typeof VisualSearchRoute
+  HistoryGameRoute: typeof HistoryGameRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/history/$game': {
+      id: '/history/$game'
+      path: '/history/$game'
+      fullPath: '/history/$game'
+      preLoaderRoute: typeof HistoryGameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   PhysicalMatchingRoute: PhysicalMatchingRoute,
   SimpleReactionRoute: SimpleReactionRoute,
   VisualSearchRoute: VisualSearchRoute,
+  HistoryGameRoute: HistoryGameRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

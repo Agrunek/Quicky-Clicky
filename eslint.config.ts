@@ -26,6 +26,7 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
+      '@tanstack/router/create-route-property-order': 'off',
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-jsx-props': 'off',
       'perfectionist/sort-named-imports': 'off',

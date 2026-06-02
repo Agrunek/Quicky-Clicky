@@ -19,6 +19,14 @@ export type StoreName =
   | typeof SIMPLE_REACTION_STORE
   | typeof VISUAL_SEARCH_STORE;
 
+const ALL_STORES = [
+  SIMPLE_REACTION_STORE,
+  PHYSICAL_MATCHING_STORE,
+  NAME_MATCHING_STORE,
+  CLASS_MATCHING_STORE,
+  VISUAL_SEARCH_STORE,
+] as const satisfies readonly StoreName[];
+
 interface StoreEntry {
   [ATTEMPT_KEY]: TrialResult[];
   [TIMESTAMP_KEY]: number;
@@ -113,6 +121,35 @@ export const saveGameAttempt = async (storeName: StoreName, attempt: TrialResult
       }
     } else {
       resolve(NaN);
+    }
+  });
+};
+
+export const readGameAttempts = async (storeName?: StoreName) => {
+  return new Promise<StoreEntry[]>((resolve) => {
+    if (DB) {
+      const storeNames = storeName ? [storeName] : ALL_STORES;
+
+      try {
+        const transaction = DB.transaction(storeNames);
+        const results: StoreEntry[] = [];
+
+        transaction.oncomplete = () => resolve(results);
+        transaction.onerror = () => {
+          console.error(`Operation error: ${transaction.error}`);
+          resolve([]);
+        };
+
+        storeNames.forEach((store) => {
+          const request: IDBRequest<StoreEntry[]> = transaction.objectStore(store).getAll();
+          request.onsuccess = () => results.push(...request.result);
+        });
+      } catch (error) {
+        console.error(`Transaction error: ${error}`);
+        resolve([]);
+      }
+    } else {
+      resolve([]);
     }
   });
 };

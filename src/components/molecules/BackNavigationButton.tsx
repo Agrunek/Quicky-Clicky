@@ -3,7 +3,7 @@ import BackIcon from '@/components/atoms/icons/BackIcon';
 
 const BackNavigationButton = () => {
   return (
-    <Link to="..">
+    <Link to="/">
       <span className="flex items-center gap-2">
         <BackIcon className="size-6!" />
         Go back to HOME PAGE
