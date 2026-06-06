@@ -12,21 +12,22 @@
     "deploy": "bun run build && gh-pages -d dist -b public-release"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.170.5",
+    "@tanstack/react-router": "^1.170.15",
     "@tanstack/react-router-devtools": "^1.167.0",
+    "@tanstack/react-virtual": "^3.14.2",
     "clsx": "^2.1.1",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "web-vitals": "^5.2.0"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "web-vitals": "^5.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/eslint-plugin-router": "^1.162.0",
-    "@tanstack/router-plugin": "^1.168.7",
-    "@types/node": "^24.12.4",
-    "@types/react": "^19.2.15",
+    "@tanstack/router-plugin": "^1.168.18",
+    "@types/node": "^24.13.1",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "@xeonlink/prettier-plugin-organize-attributes": "^1.1.0",
@@ -41,7 +42,7 @@
     "prettier-plugin-tailwindcss": "^0.7.4",
     "tailwindcss": "^4.3.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.59.4",
-    "vite": "^8.0.13"
+    "typescript-eslint": "^8.60.1",
+    "vite": "^8.0.16"
   }
 }

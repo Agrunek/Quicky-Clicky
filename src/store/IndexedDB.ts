@@ -162,3 +162,26 @@ export const readGameAttempts = async (storeName?: StoreName) => {
 };
 
 export default DB;
+
+export const deleteGameAttempt = async (storeName: StoreName, uuid: string) => {
+  return new Promise<null | string>((resolve) => {
+    if (DB) {
+      try {
+        const transaction = DB.transaction(storeName, 'readwrite');
+
+        transaction.oncomplete = () => resolve(uuid);
+        transaction.onerror = () => {
+          console.error(`Operation error: ${transaction.error}`);
+          resolve(null);
+        };
+
+        transaction.objectStore(storeName).delete(uuid);
+      } catch (error) {
+        console.error(`Transaction error: ${error}`);
+        resolve(null);
+      }
+    } else {
+      resolve(null);
+    }
+  });
+};

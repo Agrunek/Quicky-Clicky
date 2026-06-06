@@ -17,7 +17,7 @@ interface ThemeSwitchProps {
 const baseClassName = tw`flex items-center gap-2 rounded-full border-2 border-white bg-white/40 p-2 shadow-md shadow-zinc-200/10 backdrop-blur-lg backdrop-saturate-150 *:size-10 *:rounded-full *:bg-mauve-800/50 *:aria-checked:bg-mauve-800`;
 
 const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
-  const [checkedTheme, setCheckedTheme] = useState(getTheme());
+  const [checkedTheme, setCheckedTheme] = useState(() => getTheme());
 
   const style = clsx(baseClassName, className);
 
