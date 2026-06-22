@@ -28,7 +28,7 @@ const ALL_STORES = [
   VISUAL_SEARCH_STORE,
 ] as const satisfies readonly StoreName[];
 
-interface StoreEntry {
+export interface StoreEntry {
   [ATTEMPT_KEY]: TrialResult[];
   [GAME_ID_KEY]: string;
   [TIMESTAMP_KEY]: number;
