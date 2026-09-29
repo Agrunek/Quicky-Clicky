@@ -11,7 +11,7 @@ const Footer = () => {
   if (routeId !== '/') return null;
 
   return (
-    <footer className="fixed bottom-0 flex h-24 w-full items-center justify-between px-6 py-4">
+    <footer className="fixed bottom-0 z-50 flex h-24 w-full items-center justify-between px-6 py-4">
       <Text className="flex-1 text-black/50! dark:text-white/50!">App version: {APP_VERSION}</Text>
       <Card className="flex w-150 items-center gap-4 px-4! py-2!">
         <InfoIcon filled />
