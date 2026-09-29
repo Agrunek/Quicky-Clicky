@@ -3,15 +3,19 @@ import type { FileRoutesByPath } from '@tanstack/react-router';
 import type { StoreName } from '@/store/IndexedDB';
 
 import { useRef, useState } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import CenterWrapper from '@/components/atoms/CenterWrapper';
 import HistoryItem from '@/components/molecules/HistoryItem';
-import { readGameAttempts } from '@/store/IndexedDB';
+import { useNotiStack } from '@/contexts/NotiStackContext';
+import { deleteGameAttempt, readGameAttempts } from '@/store/IndexedDB';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const History = () => {
+  const router = useRouter();
+  const { enqueue } = useNotiStack();
+
   const attempts = Route.useLoaderData();
   const sorted = [...attempts].sort((a, b) => b.timestamp - a.timestamp);
   const [expanded, setExpanded] = useState<null | string>(null);
@@ -43,7 +47,15 @@ const History = () => {
                 <HistoryItem
                   expanded={expanded === item.uuid}
                   item={item}
-                  onDetailsPressed={() => setExpanded((current) => (current === item.uuid ? null : item.uuid))}
+                  onDelete={async () => {
+                    const deleted = await deleteGameAttempt(item.parent, item.uuid);
+
+                    if (deleted) {
+                      router.invalidate();
+                      enqueue('Attempt has been deleted!', { duration: 3000, variant: 'success' });
+                    }
+                  }}
+                  onDetails={() => setExpanded((current) => (current === item.uuid ? null : item.uuid))}
                   className="mx-16 mt-4 w-full max-w-3xl"
                 />
               </div>

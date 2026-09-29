@@ -3,17 +3,19 @@ import type { StoreEntry } from '@/store/IndexedDB';
 import Button from '@/components/atoms/Button';
 import Card from '@/components/atoms/Card';
 import Text from '@/components/atoms/Text';
+import DeleteIcon from '@/components/atoms/icons/DeleteIcon';
 
 interface HistoryItemProps {
   className?: string;
   expanded?: boolean;
   item: StoreEntry;
-  onDetailsPressed?: () => void;
+  onDelete?: () => void;
+  onDetails?: () => void;
 }
 
 const sum = (arr: number[]) => arr.reduce((sum, val) => sum + val, 0);
 
-const HistoryItem = ({ className, expanded, item, onDetailsPressed }: HistoryItemProps) => {
+const HistoryItem = ({ className, expanded, item, onDelete, onDetails }: HistoryItemProps) => {
   const nonFalseStarts = item.attempt.filter((res) => !res.falseStart);
   const falseStartCount = item.attempt.length - nonFalseStarts.length;
 
@@ -26,17 +28,19 @@ const HistoryItem = ({ className, expanded, item, onDetailsPressed }: HistoryIte
 
   return (
     <div className={className}>
-      <Card className="flex flex-col gap-4">
+      <Card className="relative flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap items-center gap-4">
             <Text as="h2" variant="subheading" className="text-2xl!">
               {item.gameid}
             </Text>
             <Text className="opacity-80">{new Date(item.timestamp).toLocaleString()}</Text>
           </div>
-          <Button onClick={onDetailsPressed} variant="headless">
-            <Text className="text-xl! font-semibold hover:underline">Details...</Text>
-          </Button>
+          {onDetails && (
+            <Button onClick={onDetails} variant="headless">
+              <Text className="text-xl! font-semibold! decoration-2 hover:underline">Details...</Text>
+            </Button>
+          )}
         </div>
         <div className="flex flex-wrap justify-between gap-3">
           <Text>
@@ -55,6 +59,15 @@ const HistoryItem = ({ className, expanded, item, onDetailsPressed }: HistoryIte
             SD time: <span className="font-semibold">{sdTime.toFixed(2)} ms</span>
           </Text>
         </div>
+        {onDelete && (
+          <Button
+            onClick={onDelete}
+            variant="headless"
+            className="absolute top-3 -right-12 rounded-xl rounded-l-none border-2 border-l-0 border-white bg-red-700 p-2"
+          >
+            <DeleteIcon className="size-7!" />
+          </Button>
+        )}
       </Card>
       {expanded && (
         <Card className="mx-8 rounded-t-none border-t-0">
