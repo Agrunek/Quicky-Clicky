@@ -169,8 +169,6 @@ export const readGameAttempts = async (storeName?: StoreName) => {
   });
 };
 
-export default DB;
-
 export const deleteGameAttempt = async (storeName: StoreName, uuid: string) => {
   return new Promise<null | string>((resolve) => {
     if (DB) {
@@ -193,3 +191,5 @@ export const deleteGameAttempt = async (storeName: StoreName, uuid: string) => {
     }
   });
 };
+
+export default DB;

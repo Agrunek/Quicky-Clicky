@@ -4,6 +4,7 @@ import Button from '@/components/atoms/Button';
 import Card from '@/components/atoms/Card';
 import Text from '@/components/atoms/Text';
 import DeleteIcon from '@/components/atoms/icons/DeleteIcon';
+import { calculateStats } from '@/utils/collection';
 
 interface HistoryItemProps {
   className?: string;
@@ -13,18 +14,8 @@ interface HistoryItemProps {
   onDetails?: () => void;
 }
 
-const sum = (arr: number[]) => arr.reduce((sum, val) => sum + val, 0);
-
 const HistoryItem = ({ className, expanded, item, onDelete, onDetails }: HistoryItemProps) => {
-  const nonFalseStarts = item.attempt.filter((res) => !res.falseStart);
-  const falseStartCount = item.attempt.length - nonFalseStarts.length;
-
-  const times = nonFalseStarts.map((res) => res.reactionTimeMs);
-
-  const meanTime = sum(times) / times.length || 0;
-  const minTime = Math.min(...(times.length ? times : [0]));
-  const maxTime = Math.max(...(times.length ? times : [0]));
-  const sdTime = Math.sqrt(sum(times.map((time) => (time - meanTime) ** 2)) / times.length) || 0;
+  const { falseStartCount, maxTime, meanTime, minTime, sdTime } = calculateStats(item.attempt);
 
   return (
     <div className={className}>

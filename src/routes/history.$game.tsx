@@ -6,10 +6,12 @@ import { useRef, useState } from 'react';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
+import Button from '@/components/atoms/Button';
 import CenterWrapper from '@/components/atoms/CenterWrapper';
 import HistoryItem from '@/components/molecules/HistoryItem';
 import { useNotiStack } from '@/contexts/NotiStackContext';
 import { deleteGameAttempt, readGameAttempts } from '@/store/IndexedDB';
+import { downloadXlsx } from '@/utils/spreadsheet';
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const History = () => {
@@ -32,9 +34,10 @@ const History = () => {
   });
 
   return (
-    <CenterWrapper>
-      <div ref={scrollRef} className="h-full flex-1">
-        <div ref={virtualizer.containerRef} className="relative my-24">
+    <CenterWrapper className="flex w-full flex-col gap-8 py-24">
+      <Button onClick={() => downloadXlsx(sorted)}>DOWNLOAD .XLSX</Button>
+      <div ref={scrollRef} className="h-full w-full">
+        <div ref={virtualizer.containerRef} className="relative">
           {virtualizer.getVirtualItems().map((virtualItem) => {
             const item = sorted[virtualItem.index];
             return (

@@ -91,3 +91,46 @@ export const getAlphaPair = (
 
   return [templateAlpha, compareAlphas];
 };
+
+const sum = (arr: number[]) => {
+  return arr.reduce((sum, val) => sum + val, 0);
+};
+
+export const calculateStats = (attempt: TrialResult[]) => {
+  const nonFalseStarts = attempt.filter((res) => !res.falseStart);
+  const falseStartCount = attempt.length - nonFalseStarts.length;
+
+  const times = nonFalseStarts.map((res) => res.reactionTimeMs);
+
+  const meanTime = sum(times) / times.length || 0;
+  const minTime = Math.min(...(times.length ? times : [0]));
+  const maxTime = Math.max(...(times.length ? times : [0]));
+  const sdTime = Math.sqrt(sum(times.map((time) => (time - meanTime) ** 2)) / times.length) || 0;
+
+  const matches = nonFalseStarts.filter((res) => res.intentMatch === true);
+  const totalMatchTime = sum(matches.map((res) => res.reactionTimeMs));
+  const totalMatchErrors = matches.filter((res) => !res.isCorrect).length;
+
+  const noMatches = nonFalseStarts.filter((res) => res.intentMatch === false);
+  const totalNoMatchTime = sum(noMatches.map((res) => res.reactionTimeMs));
+  const totalNoMatchErrors = noMatches.filter((res) => !res.isCorrect).length;
+
+  const totalTime = totalMatchTime + totalNoMatchTime;
+  const totalErrors = totalMatchErrors + totalNoMatchErrors;
+
+  return {
+    falseStartCount,
+    matchesCount: matches.length,
+    maxTime,
+    meanTime,
+    minTime,
+    noMatchesCount: noMatches.length,
+    sdTime,
+    totalErrors,
+    totalMatchErrors,
+    totalMatchTime,
+    totalNoMatchErrors,
+    totalNoMatchTime,
+    totalTime,
+  };
+};

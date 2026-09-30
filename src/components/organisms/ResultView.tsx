@@ -9,6 +9,7 @@ import CenterWrapper from '@/components/atoms/CenterWrapper';
 import Text from '@/components/atoms/Text';
 import { useNotiStack } from '@/contexts/NotiStackContext';
 import { saveGameAttempt } from '@/store/IndexedDB';
+import { calculateStats } from '@/utils/collection';
 
 interface ResultViewProps {
   id: string;
@@ -19,31 +20,24 @@ interface ResultViewProps {
   storeName: StoreName;
 }
 
-const sum = (arr: number[]) => arr.reduce((sum, val) => sum + val, 0);
-
 const ResultView = ({ id, includeDecission, name, restartFn, results, storeName }: ResultViewProps) => {
   const { enqueue } = useNotiStack();
 
-  const nonFalseStarts = results.filter((res) => !res.falseStart);
-  const falseStartCount = results.length - nonFalseStarts.length;
-
-  const times = nonFalseStarts.map((res) => res.reactionTimeMs);
-
-  const meanTime = sum(times) / times.length || 0;
-  const minTime = Math.min(...(times.length ? times : [0]));
-  const maxTime = Math.max(...(times.length ? times : [0]));
-  const sdTime = Math.sqrt(sum(times.map((time) => (time - meanTime) ** 2)) / times.length) || 0;
-
-  const matches = nonFalseStarts.filter((res) => res.intentMatch === true);
-  const totalMatchTime = sum(matches.map((res) => res.reactionTimeMs));
-  const totalMatchErrors = matches.filter((res) => !res.isCorrect).length;
-
-  const noMatches = nonFalseStarts.filter((res) => res.intentMatch === false);
-  const totalNoMatchTime = sum(noMatches.map((res) => res.reactionTimeMs));
-  const totalNoMatchErrors = noMatches.filter((res) => !res.isCorrect).length;
-
-  const totalTime = totalMatchTime + totalNoMatchTime;
-  const totalErrors = totalMatchErrors + totalNoMatchErrors;
+  const {
+    falseStartCount,
+    matchesCount,
+    maxTime,
+    meanTime,
+    minTime,
+    noMatchesCount,
+    sdTime,
+    totalErrors,
+    totalMatchErrors,
+    totalMatchTime,
+    totalNoMatchErrors,
+    totalNoMatchTime,
+    totalTime,
+  } = calculateStats(results);
 
   useEffect(() => {
     (async () => {
@@ -88,14 +82,14 @@ const ResultView = ({ id, includeDecission, name, restartFn, results, storeName 
           <Text variant="subheading" className="text-right">
             Errors [{totalErrors}]
           </Text>
-          <Text variant="subheading">Match trials ({matches.length})</Text>
+          <Text variant="subheading">Match trials ({matchesCount})</Text>
           <Text variant="subheading" className="text-right">
             {Math.trunc(totalMatchTime)} ms
           </Text>
           <Text variant="subheading" className="text-right">
             {totalMatchErrors}
           </Text>
-          <Text variant="subheading">No-match trials ({noMatches.length})</Text>
+          <Text variant="subheading">No-match trials ({noMatchesCount})</Text>
           <Text variant="subheading" className="text-right">
             {Math.trunc(totalNoMatchTime)} ms
           </Text>
