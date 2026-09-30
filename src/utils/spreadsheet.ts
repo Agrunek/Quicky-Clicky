@@ -19,6 +19,7 @@ export const downloadXlsx = async (data: StoreEntry[]) => {
     worksheet.columns = [
       { header: 'ID', hidden: true, key: 'id' },
       { header: 'Timestamp', key: 'timestamp', width: 25 },
+      { header: 'TOTAL TRIALS', key: 'totalTrials', width: 15 },
       { header: 'False starts', key: 'falseStart', width: 10 },
       { header: 'Mean time', key: 'meanTime', width: 10 },
       { header: 'Min time', key: 'minTime', width: 10 },
@@ -30,8 +31,8 @@ export const downloadXlsx = async (data: StoreEntry[]) => {
       worksheet.columns = [
         ...worksheet.columns,
         {},
-        { header: 'Total time', key: 'totalTime', width: 10 },
-        { header: 'Total errors', key: 'totalErrors', width: 10 },
+        { header: 'Total time', key: 'totalTime', width: 15 },
+        { header: 'Total errors', key: 'totalErrors', width: 15 },
         { header: 'Matches', key: 'matches', width: 15 },
         { header: 'M-Total time', key: 'matchTotalTime', width: 15 },
         { header: 'M-Total errors', key: 'matchTotalErrors', width: 15 },
@@ -79,6 +80,7 @@ export const downloadXlsx = async (data: StoreEntry[]) => {
         timestamp: new Date(entry.timestamp).toLocaleString(),
         totalErrors: totalErrors,
         totalTime: totalTime,
+        totalTrials: entry.attempt.length,
       });
     });
 
