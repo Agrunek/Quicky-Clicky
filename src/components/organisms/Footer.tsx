@@ -12,7 +12,7 @@ const Footer = () => {
 
   return (
     <footer className="fixed right-3 bottom-3 left-3 z-50 mx-auto flex max-w-6xl items-center justify-center sm:right-6 sm:bottom-5 sm:left-6">
-      <Card className="flex w-full items-center gap-2 px-4! py-3! sm:max-w-lg sm:gap-2">
+      <Card className="flex w-full items-center gap-2 px-4! py-3! sm:max-w-lg">
         <InfoIcon filled className="size-6! shrink-0 text-app-label!" />
         <Text className="flex-1 text-xs! leading-snug! sm:text-sm!">
           This app is just a remake of the <span className="font-bold">ReactionTimeExperiment</span> app created by {}
