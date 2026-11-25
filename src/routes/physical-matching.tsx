@@ -52,11 +52,11 @@ const PhysicalMatching = () => {
 
   return (
     <CenterWrapper>
-      <Card className="flex w-80 items-center justify-between gap-4 p-4">
+      <Card className="flex w-full max-w-lg items-center justify-between gap-3 p-4 sm:gap-5 sm:p-6!">
         <Text variant="subheading" className="flex-1 text-center text-3xl!">
           {wordPair[0]}
         </Text>
-        <div className="h-16 w-0.5 bg-white/50" />
+        <div className="h-14 w-px shrink-0 bg-app-divider sm:h-16" />
         <Text variant="subheading" className="flex-1 text-center text-3xl!">
           {state.reactionReady && wordPair[1]}
         </Text>

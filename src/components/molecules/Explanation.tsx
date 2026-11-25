@@ -14,7 +14,7 @@ interface ExplanationProps {
   title: string;
 }
 
-const baseClassName = tw`w-100`;
+const baseClassName = tw`w-full`;
 
 const Explanation = ({ children, className, title }: ExplanationProps) => {
   const style = clsx(baseClassName, className);
@@ -27,16 +27,16 @@ const Explanation = ({ children, className, title }: ExplanationProps) => {
   return (
     <>
       <Button onClick={openModal} variant="headless">
-        <KnowledgeIcon filled />
+        <KnowledgeIcon filled className="size-7! text-app-label!" />
       </Button>
-      <dialog ref={dialogRef} className="m-auto bg-transparent backdrop:bg-black/50">
+      <dialog ref={dialogRef} className="m-auto w-[calc(100vw-2rem)] max-w-104 bg-transparent backdrop:bg-app-backdrop">
         <Card className={style}>
           <div className="mb-2 flex justify-between">
             <Text as="h2" variant="subheading">
               {title}
             </Text>
             <Button onClick={closeModal} variant="headless">
-              <CrossIcon />
+              <CrossIcon className="text-app-label!" />
             </Button>
           </div>
           {children}

@@ -20,7 +20,7 @@ const Input = ({ className, label, name, onChange, type, value }: InputProps) =>
     <div className={style}>
       <label
         htmlFor={`input-${name}`}
-        className="ml-1.5 w-fit rounded-t-xl border-x-2 border-t-2 border-white bg-mauve-800 px-2.5 py-0.5 text-lg font-semibold text-white shadow-md shadow-zinc-200/10"
+        className="mb-1 ml-1 w-fit text-xs font-bold tracking-[0.12em] text-app-label uppercase"
       >
         {label}
       </label>
@@ -30,7 +30,7 @@ const Input = ({ className, label, name, onChange, type, value }: InputProps) =>
         type={type}
         value={value}
         onChange={onChange}
-        className="rounded-tl-md rounded-tr-xl rounded-b-xl border-2 border-white bg-mauve-800 px-4 py-2 text-white shadow-md shadow-zinc-200/10"
+        className="min-h-12 rounded-2xl border border-app-border bg-app-control px-4 py-3 text-app-ink shadow-sm transition placeholder:text-app-placeholder focus:border-app-accent focus:ring-4 focus:ring-app-accent/15 focus:outline-none"
       />
     </div>
   );

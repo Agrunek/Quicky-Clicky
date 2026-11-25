@@ -10,9 +10,9 @@ import useGameState from '@/hooks/useGameState';
 import { SIMPLE_REACTION_STORE } from '@/store/IndexedDB';
 import { tw } from '@/utils/string';
 
-const baseClassName = tw`flex aspect-video w-3/5 items-center justify-center`;
-const activeClassName = tw`bg-green-500!`;
-const inactiveClassName = tw`bg-red-500!`;
+const baseClassName = tw`flex aspect-4/3 w-full items-center justify-center rounded-4xl sm:aspect-video sm:w-3/4 lg:w-3/5`;
+const activeClassName = tw`bg-game-ready!`;
+const inactiveClassName = tw`bg-game-waiting!`;
 
 /* eslint-disable-next-line react-refresh/only-export-components */
 const SimpleReaction = () => {
@@ -38,9 +38,9 @@ const SimpleReaction = () => {
 
   return (
     <CenterWrapper>
-      <Card className={style}>
+      <Card className={`border-app-card-border p-6! shadow-app-card ${style}`}>
         {!state.reactionReady && (
-          <Text variant="subheading" className="font-[cursive] text-6xl!">
+          <Text variant="subheading" className="text-4xl! font-extrabold! text-white! drop-shadow sm:text-6xl!">
             Ready?
           </Text>
         )}

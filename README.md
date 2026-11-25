@@ -29,4 +29,6 @@ Each experiment is described below:
 
 ## Attempt Management
 
-This feature will be implemented in 1.1 version...
+Before starting an experiment, you can configure the number of trials and, where applicable, the confirmation and no-match keys or visual-search grid size.
+After an experiment is completed, its results are saved locally in your browser.
+View past attempts from the Results page, expand an attempt to inspect individual trials, delete attempts, or download the results as an `.xlsx` file.

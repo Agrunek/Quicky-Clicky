@@ -14,7 +14,7 @@ interface ThemeSwitchProps {
   className?: string;
 }
 
-const baseClassName = tw`flex items-center gap-2 rounded-full border-2 border-white bg-white/40 p-2 shadow-md shadow-zinc-200/10 backdrop-blur-lg backdrop-saturate-150 *:size-10 *:rounded-full *:bg-mauve-800/50 *:aria-checked:bg-mauve-800`;
+const baseClassName = tw`flex items-center gap-1 rounded-full border border-app-card-border bg-app-card p-1.5 shadow-app-theme backdrop-blur-lg *:size-10 *:rounded-full *:text-app-icon *:transition *:hover:bg-app-hover *:aria-checked:bg-app-selected`;
 
 const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
   const [checkedTheme, setCheckedTheme] = useState(() => getTheme());
@@ -34,7 +34,7 @@ const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
         onClick={() => updateTheme('system')}
         variant="headless"
       >
-        <SystemIcon filled={checkedTheme === 'system'} className="m-auto size-6!" />
+        <SystemIcon filled={checkedTheme === 'system'} className="m-auto size-6! text-app-icon!" />
       </Button>
       <Button
         role="radio"
@@ -42,7 +42,7 @@ const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
         onClick={() => updateTheme('light')}
         variant="headless"
       >
-        <LightIcon filled={checkedTheme === 'light'} className="m-auto size-7!" />
+        <LightIcon filled={checkedTheme === 'light'} className="m-auto size-7! text-app-icon!" />
       </Button>
       <Button
         role="radio"
@@ -50,7 +50,7 @@ const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
         onClick={() => updateTheme('dark')}
         variant="headless"
       >
-        <DarkIcon filled={checkedTheme === 'dark'} className="m-auto size-6!" />
+        <DarkIcon filled={checkedTheme === 'dark'} className="m-auto size-6! text-app-icon!" />
       </Button>
     </div>
   );

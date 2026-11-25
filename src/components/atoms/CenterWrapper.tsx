@@ -7,7 +7,7 @@ interface CenterWrapperProps {
   className?: string;
 }
 
-const baseClassName = tw`flex min-h-screen w-screen items-center justify-center`;
+const baseClassName = tw`flex min-h-svh w-full items-center justify-center px-4`;
 
 const CenterWrapper = ({ children, className }: CenterWrapperProps) => {
   const style = clsx(baseClassName, className);

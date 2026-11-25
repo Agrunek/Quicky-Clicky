@@ -19,21 +19,25 @@ const HistoryItem = ({ className, expanded, item, onDelete, onDetails }: History
 
   return (
     <div className={className}>
-      <Card className="relative flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-wrap items-center gap-4">
+      <Card className="relative flex flex-col gap-4 pr-14 sm:pr-16">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <Text as="h2" variant="subheading" className="text-2xl!">
               {item.gameid}
             </Text>
             <Text className="opacity-80">{new Date(item.timestamp).toLocaleString()}</Text>
           </div>
           {onDetails && (
-            <Button onClick={onDetails} variant="headless">
-              <Text className="text-xl! font-semibold! decoration-2 hover:underline">Details...</Text>
+            <Button
+              onClick={onDetails}
+              variant="headless"
+              className="shrink-0 rounded-full px-2.5 py-1 transition hover:bg-app-hover"
+            >
+              <Text className="text-sm! font-semibold! tracking-wide! text-app-label! hover:underline">Details...</Text>
             </Button>
           )}
         </div>
-        <div className="flex flex-wrap justify-between gap-3">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-2 sm:flex sm:flex-wrap sm:justify-between sm:gap-3">
           <Text>
             False starts: <span className="font-semibold">{falseStartCount}</span>
           </Text>
@@ -54,14 +58,14 @@ const HistoryItem = ({ className, expanded, item, onDelete, onDetails }: History
           <Button
             onClick={onDelete}
             variant="headless"
-            className="absolute top-3 -right-12 rounded-xl rounded-l-none border-2 border-l-0 border-white bg-red-700 p-2"
+            className="absolute top-4 right-3 rounded-xl border border-app-danger-border bg-app-danger-surface p-2 text-app-danger transition hover:bg-app-danger-hover"
           >
-            <DeleteIcon className="size-7!" />
+            <DeleteIcon className="size-7! text-app-danger!" />
           </Button>
         )}
       </Card>
       {expanded && (
-        <Card className="mx-8 rounded-t-none border-t-0">
+        <Card className="mx-3 rounded-t-none border-t-0 px-3! sm:mx-8">
           {item.attempt.map((trial, idx) => (
             <div key={idx} className="flex flex-col">
               <div className="flex items-center px-2">
@@ -80,7 +84,9 @@ const HistoryItem = ({ className, expanded, item, onDelete, onDetails }: History
                         Correct:&nbsp;
                         <span className="font-semibold">{trial.intentMatch ? 'Match' : 'No-match'}</span> |
                         Answered:&nbsp;
-                        <span className={`font-semibold ${trial.isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+                        <span
+                          className={`font-semibold ${trial.isCorrect ? 'text-status-success' : 'text-status-error'}`}
+                        >
                           {trial.intentMatch == trial.isCorrect ? 'Match' : 'No-match'}
                         </span>
                       </Text>
@@ -88,7 +94,7 @@ const HistoryItem = ({ className, expanded, item, onDelete, onDetails }: History
                   </div>
                 )}
               </div>
-              <div className="my-2 h-0.5 w-full bg-white/50" />
+              <div className="my-2 h-0.5 w-full bg-app-divider" />
             </div>
           ))}
         </Card>

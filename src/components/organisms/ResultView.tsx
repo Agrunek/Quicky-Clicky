@@ -50,29 +50,54 @@ const ResultView = ({ id, includeDecission, name, restartFn, results, storeName 
   }, [storeName, id, results, enqueue]);
 
   return (
-    <CenterWrapper className="flex-col gap-10">
-      <Text as="h1" variant="heading">
+    <CenterWrapper className="flex-col gap-6 py-24 sm:gap-8">
+      <Text as="h1" variant="heading" className="text-center text-2xl! sm:text-3xl!">
         {name} completed!
       </Text>
-      <div className="flex items-center gap-4">
-        <Text variant="heading" className="text-xl!">
-          False starts: {falseStartCount}
+      <div className="grid w-full max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <Text
+          variant="heading"
+          className="flex items-center justify-center rounded-2xl border border-app-raised-border bg-app-raised p-3 text-center text-sm! shadow-sm sm:p-4 sm:text-base!"
+        >
+          False starts:
+          <br />
+          {falseStartCount}
         </Text>
-        <Text variant="heading" className="text-xl!">
-          Mean time: {meanTime.toFixed(2)} ms
+        <Text
+          variant="heading"
+          className="flex items-center justify-center rounded-2xl border border-app-raised-border bg-app-raised p-3 text-center text-sm! shadow-sm sm:p-4 sm:text-base!"
+        >
+          Mean time:
+          <br />
+          {meanTime.toFixed(2)} ms
         </Text>
-        <Text variant="heading" className="text-xl!">
-          Min time: {Math.trunc(minTime)} ms
+        <Text
+          variant="heading"
+          className="flex items-center justify-center rounded-2xl border border-app-raised-border bg-app-raised p-3 text-center text-sm! shadow-sm sm:p-4 sm:text-base!"
+        >
+          Min time:
+          <br />
+          {Math.trunc(minTime)} ms
         </Text>
-        <Text variant="heading" className="text-xl!">
-          Max time: {Math.trunc(maxTime)} ms
+        <Text
+          variant="heading"
+          className="flex items-center justify-center rounded-2xl border border-app-raised-border bg-app-raised p-3 text-center text-sm! shadow-sm sm:p-4 sm:text-base!"
+        >
+          Max time:
+          <br />
+          {Math.trunc(maxTime)} ms
         </Text>
-        <Text variant="heading" className="text-xl!">
-          SD time: {sdTime.toFixed(2)} ms
+        <Text
+          variant="heading"
+          className="flex items-center justify-center rounded-2xl border border-app-raised-border bg-app-raised p-3 text-center text-sm! shadow-sm sm:p-4 sm:text-base!"
+        >
+          SD time:
+          <br />
+          {sdTime.toFixed(2)} ms
         </Text>
       </div>
       {includeDecission && (
-        <Card className="grid grid-cols-3 grid-rows-3 gap-4">
+        <Card className="grid w-full max-w-2xl grid-cols-[minmax(0,1.3fr)_repeat(2,minmax(0,1fr))] gap-x-3 gap-y-4 sm:gap-x-6">
           <Text variant="subheading" className="font-extrabold!">
             Detailed results
           </Text>

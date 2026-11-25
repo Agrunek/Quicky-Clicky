@@ -21,11 +21,11 @@ const SetupView = ({ includeKeyDeny, includeNumberOfItems, setup, setupFn, start
   const act = !setup.trialCount || (includeKeyDeny && !setup.keyDeny) || (includeNumberOfItems && !setup.numberOfItems);
 
   return (
-    <CenterWrapper className="flex-col gap-6">
-      <Text as="h1" variant="heading">
+    <CenterWrapper className="flex-col gap-5 py-24">
+      <Text as="h1" variant="heading" className="text-center text-2xl! sm:text-3xl!">
         Check your current settings:
       </Text>
-      <Card className="flex w-80 flex-col items-center gap-4 py-6!">
+      <Card className="flex w-full max-w-md flex-col items-center gap-4 px-5! py-6! sm:px-7!">
         <Input
           name="trial-count"
           type="number"
@@ -60,7 +60,7 @@ const SetupView = ({ includeKeyDeny, includeNumberOfItems, setup, setupFn, start
             className="w-full"
           />
         )}
-        <Button disabled={act} onClick={startFn} className="mt-4 w-50">
+        <Button disabled={act} onClick={startFn} className="mt-2 w-full sm:mt-3">
           Let's go!
         </Button>
       </Card>

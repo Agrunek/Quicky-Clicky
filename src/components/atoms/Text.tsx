@@ -20,9 +20,9 @@ type TextVariant = 'heading' | 'paragraph' | 'subheading';
 const baseClassName = tw`oldstyle-nums slashed-zero`;
 
 const variantClassNames: ClassNameDictionary<TextVariant> = {
-  heading: tw`text-3xl font-extrabold text-black text-shadow-lg/50 text-shadow-zinc-200 dark:text-white dark:text-shadow-stone-800`,
-  paragraph: tw`text-base font-normal text-white text-shadow-none`,
-  subheading: tw`text-xl font-semibold text-white text-shadow-sm/30 text-shadow-stone-800`,
+  heading: tw`text-3xl font-extrabold tracking-tight text-app-ink`,
+  paragraph: tw`text-base leading-relaxed font-normal text-app-body`,
+  subheading: tw`text-xl font-semibold tracking-tight text-app-heading`,
 };
 
 const Text = ({ as: Element = 'p', className, variant = 'paragraph', ...props }: TextProps) => {

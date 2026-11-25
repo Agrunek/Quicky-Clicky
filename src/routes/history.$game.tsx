@@ -8,6 +8,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 
 import Button from '@/components/atoms/Button';
 import CenterWrapper from '@/components/atoms/CenterWrapper';
+import Text from '@/components/atoms/Text';
 import HistoryItem from '@/components/molecules/HistoryItem';
 import { useNotiStack } from '@/contexts/NotiStackContext';
 import { deleteGameAttempt, readGameAttempts } from '@/store/IndexedDB';
@@ -34,38 +35,46 @@ const History = () => {
   });
 
   return (
-    <CenterWrapper className="flex w-full flex-col gap-8 py-24">
-      <Button onClick={() => downloadXlsx(sorted)}>DOWNLOAD .XLSX</Button>
-      <div ref={scrollRef} className="h-full w-full">
-        <div ref={virtualizer.containerRef} className="relative">
-          {virtualizer.getVirtualItems().map((virtualItem) => {
-            const item = sorted[virtualItem.index];
-            return (
-              <div
-                key={virtualItem.key}
-                ref={virtualizer.measureElement}
-                data-index={virtualItem.index}
-                className="absolute top-0 left-0 flex w-full justify-center"
-              >
-                <HistoryItem
-                  expanded={expanded === item.uuid}
-                  item={item}
-                  onDelete={async () => {
-                    const deleted = await deleteGameAttempt(item.parent, item.uuid);
+    <CenterWrapper className="flex min-h-svh w-full flex-col gap-5 px-3 py-24 sm:gap-8 sm:px-6">
+      {sorted.length > 0 ? (
+        <>
+          <Button onClick={() => downloadXlsx(sorted)}>DOWNLOAD .XLSX</Button>
+          <div ref={scrollRef} className="min-h-0 w-full flex-1">
+            <div ref={virtualizer.containerRef} className="relative">
+              {virtualizer.getVirtualItems().map((virtualItem) => {
+                const item = sorted[virtualItem.index];
+                return (
+                  <div
+                    key={virtualItem.key}
+                    ref={virtualizer.measureElement}
+                    data-index={virtualItem.index}
+                    className="absolute top-0 left-0 flex w-full justify-center"
+                  >
+                    <HistoryItem
+                      expanded={expanded === item.uuid}
+                      item={item}
+                      onDelete={async () => {
+                        const deleted = await deleteGameAttempt(item.parent, item.uuid);
 
-                    if (deleted) {
-                      router.invalidate();
-                      enqueue('Attempt has been deleted!', { duration: 3000, variant: 'success' });
-                    }
-                  }}
-                  onDetails={() => setExpanded((current) => (current === item.uuid ? null : item.uuid))}
-                  className="mx-16 mt-4 w-full max-w-3xl"
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
+                        if (deleted) {
+                          router.invalidate();
+                          enqueue('Attempt has been deleted!', { duration: 3000, variant: 'success' });
+                        }
+                      }}
+                      onDetails={() => setExpanded((current) => (current === item.uuid ? null : item.uuid))}
+                      className="mx-2 mt-4 w-full max-w-3xl sm:mx-8"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      ) : (
+        <Text as="h1" variant="heading" className="max-w-lg text-center text-xl! sm:text-2xl!">
+          No results yet. Play a game to see your results here!
+        </Text>
+      )}
     </CenterWrapper>
   );
 };

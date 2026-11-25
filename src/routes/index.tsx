@@ -9,29 +9,30 @@ import Explanation from '@/components/molecules/Explanation';
 /* eslint-disable-next-line react-refresh/only-export-components */
 const Index = () => {
   return (
-    <CenterWrapper className="-mt-8 flex-col gap-6">
-      <Text as="h1" variant="heading" className="font-[cursive]">
+    <CenterWrapper className="min-h-svh flex-col gap-5 px-4 pt-24 pb-36 sm:gap-6">
+      <Text as="h1" variant="heading" className="text-center text-3xl! sm:text-4xl!">
         Pick {}
-        <span className="bg-linear-90/increasing from-violet-700 via-lime-300 to-violet-700 bg-clip-text text-5xl font-black tracking-widest text-transparent italic text-shadow-none text-stroke-light-mode dark:text-stroke-dark-mode">
+        <span className="bg-linear-to-r from-app-accent via-app-peach to-app-lilac bg-clip-text text-4xl font-black tracking-wide text-transparent sm:text-5xl">
           your
         </span>
         {} poison
       </Text>
-      <Card className="flex w-80 flex-col gap-6 p-6!">
-        <div className="flex items-center gap-4">
+      <Card className="flex w-full max-w-md flex-col gap-3 p-4! sm:gap-4 sm:p-6!">
+        <div className="flex items-center gap-3">
           <Link to="/simple-reaction" className="flex-1">
             Simple Reaction
           </Link>
           <Explanation title="Simple Reaction">
             <Text>
-              A big <span className="font-bold text-red-500">red</span> box will appear in the centre of the screen.
-              After a random delay, press the <span className="font-bold">chosen key</span> when the box turns {}
-              <span className="font-bold text-green-500">green</span>. You can also use your {}
+              A big <span className="font-bold text-status-error">red</span> box will appear in the centre of the
+              screen. After a random delay, press the <span className="font-bold">chosen key</span> when the box turns{' '}
+              {}
+              <span className="font-bold text-status-success">green</span>. You can also use your {}
               <span className="font-bold">mouse</span> to respond.
             </Text>
           </Explanation>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link to="/physical-matching" className="flex-1">
             Physical Matching
           </Link>
@@ -45,7 +46,7 @@ const Index = () => {
             </Text>
           </Explanation>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link to="/name-matching" className="flex-1">
             Name Matching
           </Link>
@@ -60,7 +61,7 @@ const Index = () => {
             </Text>
           </Explanation>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link to="/class-matching" className="flex-1">
             Class Matching
           </Link>
@@ -78,7 +79,7 @@ const Index = () => {
             </Text>
           </Explanation>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link to="/visual-search" className="flex-1">
             Visual Search
           </Link>

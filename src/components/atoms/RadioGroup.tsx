@@ -18,12 +18,10 @@ const RadioGroup = ({ className, label, name, onChange, schema, value }: RadioGr
 
   return (
     <fieldset className={style}>
-      <legend className="ml-1.5 w-fit rounded-t-xl border-x-2 border-t-2 border-white bg-mauve-800 px-2.5 py-0.5 text-lg font-semibold text-white shadow-md shadow-zinc-200/10">
-        {label}
-      </legend>
-      <div className="flex items-center justify-between rounded-tl-md rounded-tr-xl rounded-b-xl border-2 border-white bg-mauve-800 px-4 py-2 text-white shadow-md shadow-zinc-200/10">
+      <legend className="mb-1 ml-1 w-fit text-xs font-bold tracking-[0.12em] text-app-label uppercase">{label}</legend>
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-app-border bg-app-control px-3 py-3 text-app-ink shadow-sm">
         {schema.map((val) => (
-          <div key={val} className="flex items-center gap-1">
+          <div key={val} className="flex items-center gap-2">
             <input
               id={`radio-${name}-${val}`}
               name={name}
@@ -31,8 +29,9 @@ const RadioGroup = ({ className, label, name, onChange, schema, value }: RadioGr
               value={val}
               checked={val === value}
               onChange={onChange}
+              className="size-4 accent-app-accent-hover"
             />
-            <label htmlFor={`radio-${name}-${val}`} className="font-semibold text-white">
+            <label htmlFor={`radio-${name}-${val}`} className="cursor-pointer font-semibold">
               {val}
             </label>
           </div>

@@ -19,7 +19,7 @@ const baseClassName = tw`cursor-pointer`;
 
 const variantClassNames: ClassNameDictionary<LinkVariant> = {
   headless: tw``,
-  primary: tw`relative z-10 inline-flex justify-center overflow-hidden rounded-xl border-2 border-white bg-mauve-800 px-4 py-2 text-lg font-bold text-white shadow-md shadow-zinc-200/10 text-shadow-sm/20 text-shadow-stone-800 *:relative *:z-10 before:absolute before:inset-0 before:z-0 before:origin-bottom before:scale-y-0 before:bg-conic/decreasing before:from-violet-700 before:via-lime-300 before:to-violet-700 before:transition-transform before:duration-200 before:ease-out before:content-[''] hover:before:scale-y-100 active:scale-95`,
+  primary: tw`inline-flex min-h-12 items-center justify-center rounded-2xl border border-app-accent-border bg-app-accent px-5 py-3 text-center text-base font-bold tracking-wide text-white shadow-app-action transition duration-200 hover:-translate-y-0.5 hover:bg-app-accent-hover hover:shadow-app-action-hover active:translate-y-0.5 active:shadow-app-action-active`,
 };
 
 const BasicLinkComponent = forwardRef<HTMLAnchorElement, BasicLinkProps>(

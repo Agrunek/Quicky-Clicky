@@ -56,17 +56,23 @@ const VisualSearch = () => {
 
   return (
     <CenterWrapper>
-      <Card className="flex min-w-80 items-center justify-between gap-4 p-4">
+      <Card className="flex w-full max-w-2xl items-center justify-between gap-3 p-3 sm:gap-5 sm:p-5!">
         <Text variant="subheading" className="flex-1 text-center text-3xl!">
           {alphaPair[0]}
         </Text>
-        <div className="h-16 w-0.5 bg-white/50" />
+        <div className="h-14 w-px shrink-0 bg-app-divider sm:h-16" />
         <div className="flex flex-1 items-center justify-center">
           <div style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }} className="grid">
             {alphaPair[1].map((alpha, idx) => (
-              <div key={idx} className="flex size-12 items-center justify-center border border-white/50 bg-white/25">
+              <div
+                key={idx}
+                className="flex size-6 items-center justify-center rounded-lg border border-app-border bg-app-grid min-[375px]:size-7 sm:size-9 lg:size-12"
+              >
                 {state.reactionReady && (
-                  <Text variant="subheading" className="pb-0.5 text-3xl!">
+                  <Text
+                    variant="subheading"
+                    className="pb-0.5 text-base! min-[375px]:text-lg! sm:text-2xl! lg:text-3xl!"
+                  >
                     {alpha}
                   </Text>
                 )}

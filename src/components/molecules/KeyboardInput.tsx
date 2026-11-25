@@ -15,8 +15,8 @@ interface KeyboardInputProps {
 
 const baseClassName = tw`inline-flex flex-col`;
 
-const buttonBaseClassName = tw`relative rounded-tl-md rounded-tr-xl rounded-b-xl border-2 border-white bg-mauve-800 px-4 py-2 text-left text-white shadow-md shadow-zinc-200/10`;
-const buttonListeningClassName = tw`outline-auto`;
+const buttonBaseClassName = tw`relative min-h-12 rounded-2xl border border-app-border bg-app-control px-4 py-3 pr-12 text-left text-app-ink shadow-sm transition hover:border-app-accent`;
+const buttonListeningClassName = tw`ring-4 ring-app-accent/20`;
 
 const KeyboardInput = ({ className, label, name, onChange, value }: KeyboardInputProps) => {
   const [listening, setListening] = useState(false);
@@ -48,7 +48,7 @@ const KeyboardInput = ({ className, label, name, onChange, value }: KeyboardInpu
     <div className={style}>
       <label
         htmlFor={`input-${name}`}
-        className="ml-1.5 w-fit rounded-t-xl border-x-2 border-t-2 border-white bg-mauve-800 px-2.5 py-0.5 text-lg font-semibold text-white shadow-md shadow-zinc-200/10"
+        className="mb-1 ml-1 w-fit text-xs font-bold tracking-[0.12em] text-app-label uppercase"
       >
         {label}
       </label>
@@ -65,7 +65,7 @@ const KeyboardInput = ({ className, label, name, onChange, value }: KeyboardInpu
         {listening
           ? 'Press any key...'
           : value?.toUpperCase().replace('KEY', '').replace('DIGIT', '') || 'No key provided!'}
-        <EnterIcon className="absolute top-1.5 right-3 size-7!" />
+        <EnterIcon className="absolute top-2.5 right-3 size-7! text-app-label!" />
       </Button>
     </div>
   );
